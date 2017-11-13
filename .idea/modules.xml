@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BucketDish.iml" filepath="$PROJECT_DIR$/BucketDish.iml" />
+      <module fileurl="file://C:\Users\Kyle Bartido\Documents\Android Final\android-finals\BucketDish.iml" filepath="C:\Users\Kyle Bartido\Documents\Android Final\android-finals\BucketDish.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-finals.iml" filepath="$PROJECT_DIR$/android-finals.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Kyle Bartido\Documents\Android Final\android-finals\app\app.iml" filepath="C:\Users\Kyle Bartido\Documents\Android Final\android-finals\app\app.iml" />
     </modules>
   </component>
 </project>
