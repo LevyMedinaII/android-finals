@@ -28,6 +28,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +95,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        BucketDishApp app = new BucketDishApp();
+        double lat = app.getLatitude();
+        Toast newToast = new Toast(this);
+        newToast.setDuration(Toast.LENGTH_LONG);
+        newToast.makeText(this, Double.toString(lat), Toast.LENGTH_LONG);
     }
 
     private void populateAutoComplete() {
@@ -123,7 +132,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         return false;
     }
-
     /**
      * Callback received when a permissions request has been completed.
      */
