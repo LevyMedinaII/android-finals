@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.ateneo.cie199.bucketdish.RestaurantActivity">
+
+    <TextView
+        android:id="@+id/txv_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:text="Restawrant"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/txv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_restaurant"
+        android:layout_below="@+id/txv_restaurant"
+        android:layout_marginTop="15dp"
+        android:text="address"
+        android:textSize="18sp" />
+
+    <RatingBar
+        android:id="@+id/rb_averate"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_address"
+        android:layout_below="@+id/txv_address"
+        android:layout_marginTop="15sp"
+        android:isIndicator="true" />
+
+    <ListView
+        android:id="@+id/lsv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="125sp"
+        android:layout_below="@+id/lbl_menu"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15sp">
+
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/lbl_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lsv_menu"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:text="Comments"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp" />
+
+    <ListView
+        android:id="@+id/lsv_commentrating"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lbl_comments"
+        android:layout_marginBottom="15sp"
+        android:layout_marginTop="15sp" />
+
+    <TextView
+        android:id="@+id/lbl_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/rb_averate"
+        android:layout_below="@+id/rb_averate"
+        android:layout_marginTop="15dp"
+        android:text="Menu"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/chk_bucketdish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/txv_restaurant"
+        android:layout_toEndOf="@+id/rb_averate"
+        android:text="Bucket Dished"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp" />
+</RelativeLayout>

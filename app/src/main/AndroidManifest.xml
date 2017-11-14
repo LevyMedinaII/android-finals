@@ -26,7 +26,15 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SearchFilterActivity" />
+        <activity android:name=".BucketDishActivity" />
+        <activity android:name=".FavouritesActivity" />
+        <activity android:name=".FavoriteListActivity" />
+        <activity android:name=".SearchResultActivity" />
+        <activity android:name=".RestaurantActivity" />
+        <activity android:name=".CommentRatingActivity" />
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
