@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,7 +28,7 @@ import org.json.JSONObject;
  */
 
 @SuppressLint("MissingPermission")
-public class BucketDishApp extends Application implements LocationListener {
+public class BucketDishApp extends AppCompatActivity implements LocationListener {
     private String zomatoToken = "81c4d728678c315f02168a91d762f025";
     private String[] permissions = {"ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"};
     private JSONArray restaurants;
