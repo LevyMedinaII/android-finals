@@ -3,6 +3,7 @@ package edu.ateneo.cie199.bucketdish;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -62,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +71,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.edt_login_email);
         populateAutoComplete();
+        Button random = (Button) findViewById(R.id.btn_random);
+        random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent MainActivityIntent = new Intent(LoginActivity.this, RandomizerActivity.class);
+                startActivity(MainActivityIntent);
+                finish();
+            }
+        });
+
 
         mPasswordView = (EditText) findViewById(R.id.edt_login_password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
