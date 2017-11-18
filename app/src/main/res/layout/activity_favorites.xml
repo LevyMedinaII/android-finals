@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context="edu.ateneo.cie199.bucketdish.FavoritesActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="0dp"
-        android:layout_marginTop="200dp">
-
-    </android.support.constraint.ConstraintLayout>
-
     <EditText
         android:id="@+id/edt_listname"
         android:layout_width="wrap_content"
@@ -41,8 +31,44 @@
         android:id="@+id/btn_addtolist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edt_item"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
+        android:layout_marginBottom="66dp"
         android:text="Add to List" />
+
+    <Button
+        android:id="@+id/btn_newlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_item"
+        android:layout_marginEnd="23dp"
+        android:layout_marginTop="48dp"
+        android:layout_toStartOf="@+id/btn_addtolist"
+        android:text="New List" />
+
+    <Button
+        android:id="@+id/btn_myLists"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_newlist"
+        android:layout_alignBottom="@+id/btn_newlist"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:text="mine" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btn_addtolist"
+        android:layout_marginTop="73dp" />
+
+    <Spinner
+        android:id="@+id/spn_mine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_addtolist"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="55dp" />
 </RelativeLayout>

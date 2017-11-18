@@ -18,10 +18,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class LoginActivity2 extends AppCompatActivity implements View.OnClickListener{
@@ -34,6 +42,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
     private EditText mLastNameField;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+    final BucketdishApplication macdaddy = (BucketdishApplication) getApplication();
 
 
     @Override
@@ -42,6 +51,8 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_login2);
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
+        BucketdishApplication macdaddy = (BucketdishApplication) getApplication();
+
 
 
         mEmailField =(EditText) findViewById(R.id.edt_email);
@@ -58,6 +69,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.btn_create).setOnClickListener(this);
         findViewById(R.id.btn_logout).setOnClickListener(this);
         findViewById(R.id.btn_next).setOnClickListener(this);
+        findViewById(R.id.btn_lists).setOnClickListener(this);
         findViewById(R.id.btn_start).setOnClickListener(this);
 
 
@@ -65,6 +77,28 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference listRef = database.getReference("lists");
+
+
+        final BucketdishApplication macdaddy = (BucketdishApplication) getApplication();
+        listRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Object listValue = dataSnapshot.getValue();
+
+                Log.d(TAG, "Value is: " + listValue);
+                macdaddy.setLists(listValue);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -74,6 +108,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         updateUI(currentUser, Boolean.FALSE);
     }
     private void createAccount(final String email, final String password, final String username, final String firstname, final String lastname) {
+
         Log.d(TAG, "createAccount:" + email);
         mAuth = FirebaseAuth.getInstance();
 //        if (!validateForm()) {
@@ -91,6 +126,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
                             updateUI(user, Boolean.TRUE);
                             writeNewUser(email, username, firstname, lastname);
                         } else {
@@ -115,14 +151,15 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
 
     private void writeNewUser(String email, String username, String firstname, String lastname) {
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference("/users");
         ArrayList newList = new ArrayList();
         User newUser = new User(email,username ,firstname, lastname, newList);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String userId = user.getUid();
 
-        mDatabase.child("users").child(userId).setValue(newUser);
+
+        mDatabase.child(userId).setValue(newUser);
     }
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
@@ -141,8 +178,30 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            final FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user, Boolean.FALSE);
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            final DatabaseReference userRef = database.getReference("users/"+user.getUid());
+
+                            final BucketdishApplication macdaddy = (BucketdishApplication) getApplication();
+
+
+                            userRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    macdaddy.setCurrentUser(dataSnapshot.getValue(User.class));
+
+                                    Log.d(TAG, "Query: " + "users/"+user.getUid());
+                                    Log.d(TAG, "CURRENT MAN: " + macdaddy.getCurrentUser().getUsername());
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+                                    // Failed to read value
+                                    Log.w(TAG, "Failed to read value.", error.toException());
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -176,12 +235,40 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         finish();
     }
 
+    private void lists() {
+        Intent LoginActivityIntent = new Intent(LoginActivity2.this, ListActivity.class);
+        startActivity(LoginActivityIntent);
+        finish();
+    }
 
     private void updateUI(FirebaseUser user, Boolean create) {
         //hideProgressDialog();
         if (user != null) {
         mStatusTextView.setText("You're logged in");
         mDetailTextView.setText(user.getDisplayName());
+            final FirebaseUser userLog = mAuth.getCurrentUser();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference userRef = database.getReference("users/"+userLog.getUid());
+
+            final BucketdishApplication macdaddy = (BucketdishApplication) getApplication();
+
+
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    macdaddy.setCurrentUser(dataSnapshot.getValue(User.class));
+
+                    Log.d(TAG, "Query: " + "users/"+userLog.getUid());
+                    Log.d(TAG, "CURRENT MAN: " + macdaddy.getCurrentUser().getUsername());
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException());
+                }
+            });
             findViewById(R.id.edt_email).setVisibility(View.GONE);
             findViewById(R.id.edt_password).setVisibility(View.GONE);
             findViewById(R.id.btn_login).setVisibility(View.GONE);
@@ -192,6 +279,8 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
             findViewById(R.id.edt_username).setVisibility(View.GONE);
             findViewById(R.id.btn_start).setVisibility(View.GONE);
             findViewById(R.id.btn_next).setVisibility(View.VISIBLE);
+            findViewById(R.id.btn_lists).setVisibility(View.VISIBLE);
+
 
 
         } else if (user == null && create==Boolean.FALSE) {
@@ -209,6 +298,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
             findViewById(R.id.txv_details).setVisibility(View.GONE);
             findViewById(R.id.txv_status).setVisibility(View.GONE);
             findViewById(R.id.btn_next).setVisibility(View.GONE);
+            findViewById(R.id.btn_lists).setVisibility(View.GONE);
 
         }
         else if (user == null && create==Boolean.TRUE )
@@ -225,6 +315,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
             findViewById(R.id.btn_start).setVisibility(View.VISIBLE);
             findViewById(R.id.txv_details).setVisibility(View.GONE);
             findViewById(R.id.txv_status).setVisibility(View.GONE);
+            findViewById(R.id.btn_lists).setVisibility(View.GONE);
         }
     }
 
@@ -244,6 +335,9 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         }
         else if (i == R.id.btn_start) {
             createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString(), mUsernameField.getText().toString(), mFirstNameField.getText().toString(), mLastNameField.getText().toString());
+        }
+        else if (i == R.id.btn_lists) {
+            lists();
         }
 //      else if (i == R.id.verify_email_button) {
 //            sendEmailVerification();

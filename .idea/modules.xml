@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\Kyle Bartido\Documents\Android Final\android-finals\BucketDish.iml" filepath="C:\Users\Kyle Bartido\Documents\Android Final\android-finals\BucketDish.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-finals.iml" filepath="$PROJECT_DIR$/android-finals.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wow.iml" filepath="$PROJECT_DIR$/wow.iml" />
     </modules>
   </component>
 </project>

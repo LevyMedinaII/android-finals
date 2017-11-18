@@ -15,7 +15,8 @@ public class User {
     public String username;
     public String firstname;
     public String lastname;
-    public ArrayList finishedList = new ArrayList();
+    public ArrayList<String> finishedList = new ArrayList(0);
+
 
 
     public User() {

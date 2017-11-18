@@ -131,4 +131,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
         android:text="Create Account" />
+
+    <Button
+        android:id="@+id/btn_lists"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_logout"
+        android:layout_below="@+id/txv_details"
+        android:text="Lists" />
 </RelativeLayout>

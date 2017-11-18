@@ -9,13 +9,25 @@ import java.util.ArrayList;
 public class BucketList {
     public String name;
     public String creatorID;
-    public ArrayList List = new ArrayList();
+    public String creatorName;
+    public String restaurantList;
 
+    public BucketList() {
+    }
 
-    public BucketList(String name, String creatorID, ArrayList list) {
+    public BucketList(String name, String creatorID, String creatorName, String restaurantList) {
         this.name = name;
         this.creatorID = creatorID;
-        List = list;
+        this.creatorName = creatorName;
+        this.restaurantList = restaurantList;
+    }
+
+    public String getRestaurantList() {
+        return restaurantList;
+    }
+
+    public void setRestaurantList(String restaurantList) {
+        this.restaurantList = restaurantList;
     }
 
     public String getName() {
@@ -34,11 +46,13 @@ public class BucketList {
         this.creatorID = creatorID;
     }
 
-    public ArrayList getList() {
-        return List;
+    public String getCreatorName() {
+        return creatorName;
     }
 
-    public void setList(ArrayList list) {
-        List = list;
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
     }
+
+
 }
