@@ -1,25 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    android:background="@drawable/backgroundimg"
+    tools:context="edu.ateneo.cie199.bucketdish.MainActivity">
 
-    <include
-        layout="@layout/app_bar_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/imgbtn_randsearch"
+        android:layout_width="350sp"
+        android:layout_height="125sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/btnbktlst"
+        android:text="Find a place to eat"
+        android:textSize="30sp" />
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/imgbtn_bucketlist"
+        android:layout_width="350sp"
+        android:layout_height="125sp"
+        android:layout_alignStart="@+id/imgbtn_randsearch"
+        android:layout_below="@+id/imgbtn_randsearch"
+        android:layout_marginTop="20dp"
+        android:text="UNDER CONSTRUCTION"
+        android:textSize="28sp" />
+
+
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/imgbtn_favorites"
+        android:layout_width="350sp"
+        android:layout_height="125sp"
+        android:layout_alignStart="@+id/imgbtn_bucketlist"
+        android:layout_below="@+id/imgbtn_bucketlist"
+        android:layout_marginTop="20dp"
+        android:text="UNDER CONSTRUCTION"
+        android:textSize="28sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imgbtn_favorites"
+        android:layout_below="@+id/imgbtn_favorites"
+        android:layout_marginTop="26dp"
+        android:text="Logout" />
 
-</android.support.v4.widget.DrawerLayout>
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/lbl_random"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imgbtn_bucketlist"
+        android:layout_alignStart="@+id/imgbtn_randsearch"
+        android:text="Find a Restaurant"
+        android:textSize="30sp" />
+
+
+</RelativeLayout>

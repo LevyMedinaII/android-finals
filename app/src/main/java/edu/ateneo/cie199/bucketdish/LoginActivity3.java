@@ -3,10 +3,8 @@ package edu.ateneo.cie199.bucketdish;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -32,7 +30,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -50,14 +47,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity3 extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -90,12 +86,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private String zomatoToken = "81c4d728678c315f02168a91d762f025";
     private String[] permissions = {"ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"};
     private JSONArray restaurants;
-    private JSONObject random_restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login3);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.edt_login_email);
         populateAutoComplete();
@@ -165,42 +160,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         /* Things u wanna do */
                         try {
                             restaurants = response.getJSONArray("nearby_restaurants");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-
-        // Add the request to the RequestQueue.
-        queue.add(jsObjRequest);
-    }
-
-    public void setRandomRestaurant(double lat, double lon) throws JSONException {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://www.zomato.com/geocode";
-        JSONObject jsonRequest = new JSONObject();
-
-        jsonRequest.put("user-key", zomatoToken);
-        jsonRequest.put("lat", lat);
-        jsonRequest.put("lon", lon);
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        /* Things u wanna do */
-                        try {
-                            Random rand = new Random();
-                            int index = rand.nextInt(response.getJSONArray("nearby_restaurants").length());
-                            random_restaurant = response.getJSONArray("nearby_restaurants").getJSONObject(index);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -478,7 +437,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
+                new ArrayAdapter<>(LoginActivity3.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
