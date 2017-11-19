@@ -70,7 +70,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /*API Variables */
 
     private String zomatoToken = "81c4d728678c315f02168a91d762f025";
-    private String[] permissions = {"ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"};
     private JSONArray restaurants;
     private JSONObject random_restaurant;
 

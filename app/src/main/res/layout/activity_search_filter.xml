@@ -78,7 +78,7 @@
         android:id="@+id/linearLayout2">
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spn_cuisine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"
@@ -87,7 +87,7 @@
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/chk_delvers"
+        android:id="@+id/chk_delivers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/lbl_Cuisine"
@@ -100,8 +100,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/chk_delvers"
-        android:layout_below="@+id/chk_delvers"
+        android:layout_alignStart="@id/chk_delivers"
+        android:layout_below="@+id/chk_delivers"
         android:layout_marginRight="15sp"
         android:layout_marginTop="20sp"
         android:orientation="horizontal">
@@ -120,8 +120,8 @@
             android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/chk_delvers"
-            android:layout_below="@+id/chk_delvers"
+            android:layout_alignStart="@+id/chk_delivers"
+            android:layout_below="@+id/chk_delivers"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="7.5dp"
             android:layout_weight="1"

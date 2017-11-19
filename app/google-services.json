@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "913109067815",
+    "firebase_url": "https://bucketdish-20f26.firebaseio.com",
+    "project_id": "bucketdish-20f26",
+    "storage_bucket": "bucketdish-20f26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913109067815:android:c7d46fb40d679cb4",
+        "android_client_info": {
+          "package_name": "edu.ateneo.cie199.bucketdish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913109067815-a61f3c2b284kmpo1ue0k0023htl0etc0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.ateneo.cie199.bucketdish",
+            "certificate_hash": "75440253e4dbc5c480b7d2f8a96ac3939235e534"
+          }
+        },
+        {
+          "client_id": "913109067815-pb78dh4pc4gngp3iriebs2765tkhsii6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChj4gImLrTA4CMF03OCUP7IQGOcB0ekXA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913109067815-pb78dh4pc4gngp3iriebs2765tkhsii6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

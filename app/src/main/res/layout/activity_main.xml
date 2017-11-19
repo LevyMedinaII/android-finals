@@ -15,7 +15,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/btnbktlst"
         android:text="Find a place to eat"
         android:textSize="30sp" />
     <edu.ateneo.cie199.bucketdish.CustomButton

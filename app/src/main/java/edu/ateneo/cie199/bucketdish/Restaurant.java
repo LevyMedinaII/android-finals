@@ -8,9 +8,9 @@ public class Restaurant {
     public String name;
     public String location;
     public String cuisines;
-    public float budget;
+    public Double budget;
 
-    public Restaurant(String name, String location, String cuisines, float budget) {
+    public Restaurant(String name, String location, String cuisines, Double budget) {
         this.name = name;
         this.location = location;
         this.cuisines = cuisines;
@@ -41,11 +41,11 @@ public class Restaurant {
         this.cuisines = cuisines;
     }
 
-    public float getBudget() {
+    public Double getBudget() {
         return budget;
     }
 
-    public void setBudget(float budget) {
+    public void setBudget(Double budget) {
         this.budget = budget;
     }
 }
