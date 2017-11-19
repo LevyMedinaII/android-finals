@@ -3,9 +3,13 @@ package edu.ateneo.cie199.bucketdish;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -28,9 +32,25 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -62,6 +82,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    /* Test */
+    private FusedLocationProviderClient mFusedLocationClient;
+
+    /*API Variables */
+
+    private String zomatoToken = "81c4d728678c315f02168a91d762f025";
+    private String[] permissions = {"ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"};
+    private JSONArray restaurants;
+    private JSONObject random_restaurant;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +122,183 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+        }
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            // Do something here
+
+                        }
+                    }
+                });
     }
 
+    /* API */
+    public void setAppRestaurantsNearMe(double lat, double lon) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://www.zomato.com/geocode";
+        JSONObject jsonRequest = new JSONObject();
+
+        jsonRequest.put("user-key", zomatoToken);
+        jsonRequest.put("lat", lat);
+        jsonRequest.put("lon", lon);
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        /* Things u wanna do */
+                        try {
+                            restaurants = response.getJSONArray("nearby_restaurants");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
+        // Add the request to the RequestQueue.
+        queue.add(jsObjRequest);
+    }
+    public void setRandomRestaurant(double lat, double lon) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://www.zomato.com/geocode";
+        JSONObject jsonRequest = new JSONObject();
+
+        jsonRequest.put("user-key", zomatoToken);
+        jsonRequest.put("lat", lat);
+        jsonRequest.put("lon", lon);
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        /* Things u wanna do */
+                        try {
+                            Random rand = new Random();
+                            int index = rand.nextInt(response.getJSONArray("nearby_restaurants").length());
+                            random_restaurant = response.getJSONArray("nearby_restaurants").getJSONObject(index);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
+        // Add the request to the RequestQueue.
+        queue.add(jsObjRequest);
+    }
+    public void setAppRestaurantsWithFilters(double lat, double lon,
+                                             final double budget, String cuisines,
+                                             final Boolean hasDelivery, int radius_meters) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://www.zomato.com/search";
+        JSONObject jsonRequest = new JSONObject();
+
+        jsonRequest.put("user-key", zomatoToken);
+        jsonRequest.put("lat", lat);
+        jsonRequest.put("lon", lon);
+        jsonRequest.put("radius", radius_meters);
+        jsonRequest.put("cuisines", cuisines);
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        /* Things u wanna do */
+                        try {
+                            JSONArray temp_res = response.getJSONArray("nearby_restaurants");
+                            JSONArray filtered = new JSONArray();
+                            double res_cost;
+                            boolean res_deli;
+                            String res_cuisine;
+
+                            for(int i = 0; i < temp_res.length(); i++ ){
+                                res_cost = Double.parseDouble(temp_res.getJSONObject(i).get("average_cost_for_two").toString())/2;
+                                if(res_cost > budget){
+                                    temp_res.remove(i);
+                                }
+
+                                res_deli = Boolean.parseBoolean(temp_res.getJSONObject(i).get("has_online_delivery").toString());
+                                if(res_deli != hasDelivery){
+                                    temp_res.remove(i);
+                                }
+                            }
+                            restaurants = temp_res;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
+        // Add the request to the RequestQueue.
+        queue.add(jsObjRequest);
+    }
+    public void getRestaurantDetails(String res_id) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://www.zomato.com/search";
+        JSONObject jsonRequest = new JSONObject();
+
+        jsonRequest.put("user-key", zomatoToken);
+        jsonRequest.put("res_id", res_id);
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        /* Things u wanna do */
+                        JSONObject res_details = response;
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
+        // Add the request to the RequestQueue.
+        queue.add(jsObjRequest);
+    }
+    /* API End */
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -123,7 +328,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         return false;
     }
-
     /**
      * Callback received when a permissions request has been completed.
      */
