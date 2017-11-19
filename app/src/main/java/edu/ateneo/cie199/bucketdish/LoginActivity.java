@@ -50,6 +50,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -89,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private String zomatoToken = "81c4d728678c315f02168a91d762f025";
     private String[] permissions = {"ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"};
     private JSONArray restaurants;
+    private JSONObject random_restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +165,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         /* Things u wanna do */
                         try {
                             restaurants = response.getJSONArray("nearby_restaurants");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
+        // Add the request to the RequestQueue.
+        queue.add(jsObjRequest);
+    }
+    public void setRandomRestaurant(double lat, double lon) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://www.zomato.com/geocode";
+        JSONObject jsonRequest = new JSONObject();
+
+        jsonRequest.put("user-key", zomatoToken);
+        jsonRequest.put("lat", lat);
+        jsonRequest.put("lon", lon);
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        /* Things u wanna do */
+                        try {
+                            Random rand = new Random();
+                            int index = rand.nextInt(response.getJSONArray("nearby_restaurants").length());
+                            random_restaurant = response.getJSONArray("nearby_restaurants").getJSONObject(index);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
