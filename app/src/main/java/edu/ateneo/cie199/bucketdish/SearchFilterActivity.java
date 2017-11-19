@@ -110,7 +110,15 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 
                                     final Boolean hasDelivery = delivers.isChecked();
                                     String priceCompVal = priceComp.getSelectedItem().toString();
-                                    final Boolean isGreaterThanComp = (priceCompVal == "More Than") ?  true : false;
+                                    boolean isGreaterThanComp=false;
+                                    //final Boolean isGreaterThanComp = (priceCompVal == "More Than") ?  true : false;
+                                    if(priceCompVal.matches("More Than"))
+                                    {
+                                        isGreaterThanComp=true;
+                                    }
+
+
+
                                     final String cuisineVal = cuisine.getSelectedItem().toString();
                                     final Double budget = Double.parseDouble(price.getText().toString());
 
@@ -245,7 +253,8 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                              final Intent resultActivity) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://developers.zomato.com/api/v2.1/search?lat="+lat+"&lon="+lon+"&radius="
-                +radius_meters+"&cuisine="+getCuisineID(cuisines)+"&sort=real_distance&oder=asc&count=10";
+                +radius_meters+"&cuisines="+getCuisineID(cuisines)+"&sort=real_distance&order=asc&count=125";
+        Log.d("THIS IS THE REQUEST", url);
         JSONObject jsonRequest = new JSONObject();
 //        jsonRequest.put("user-key", zomatoToken);
 //        jsonRequest.put("lat", lat);
@@ -276,26 +285,43 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 }
                                 res_cost = Double.parseDouble(temp_res.getJSONObject(i).getJSONObject("restaurant").get("average_cost_for_two").toString())/2;
                                 res_deli = Boolean.parseBoolean(temp_res.getJSONObject(i).getJSONObject("restaurant").get("has_online_delivery").toString());
-                                if(isGreaterThan) {
+                                if(isGreaterThan==Boolean.TRUE)
+                                {
+
+                                    Log.d("Greater Than", res_cost + " vs " +budget);
                                     if (res_cost < budget) {
                                         temp_res.remove(i);
                                         i=0;
+                                        Log.d("RES IS LOST", res_cost + " < " +budget);
                                     }
-                                } else {
+                                }
+                                else {
+                                    Log.d("Lesser Than " + isGreaterThan, res_cost + " vs " +budget );
                                     if (res_cost > budget) {
                                         temp_res.remove(i);
                                         i = 0;
-                                    } else if (res_deli != hasDelivery) {
-                                        temp_res.remove(i);
-                                        i = 0;
-                                    } else if ((temp_res.getJSONObject(i).getJSONObject("restaurant").getString("cuisines").toLowerCase().contains(cuisines.toLowerCase()))) {
-                                        temp_res.remove(i);
-                                        i = 0;
+                                        Log.d("BUDGET LOST", res_cost + " > " +budget);
                                     }
                                 }
+
+
+
+//                                if (res_deli != hasDelivery) {
+//                                    temp_res.remove(i);
+//                                    i = 0;
+//                                }
+//                                if ((temp_res.getJSONObject(i).getJSONObject("restaurant").getString("cuisines").toLowerCase().contains(cuisines.toLowerCase()))) {
+//                                    temp_res.remove(i);
+//                                    i = 0;
+//                                }
+                                }
                                 iterations = temp_res.length();
-                            }
+
+
+
+
                             JSONArray filtered_restaurants = temp_res;
+                            Log.d("FILTERED BABY", filtered_restaurants.toString(4));
 
                             Random rand = new Random();
                             if(filtered_restaurants.length()>0) {

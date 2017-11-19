@@ -17,6 +17,7 @@
         android:layout_marginTop="50dp"
         android:text="Find a place to eat"
         android:textSize="30sp" />
+
     <edu.ateneo.cie199.bucketdish.CustomButton
         android:id="@+id/imgbtn_bucketlist"
         android:layout_width="350dp"
