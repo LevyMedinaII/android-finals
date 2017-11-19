@@ -26,7 +26,7 @@ public class CustomButton extends android.support.v7.widget.AppCompatButton {
     }
 
     private void setButton() {
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/DK Smiling Cat.otf");
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/smilingcats.otf");
         setTypeface(font, Typeface.NORMAL);
         setTextColor(Color.WHITE);
         setBackgroundColor(Color.rgb(255,128,0));

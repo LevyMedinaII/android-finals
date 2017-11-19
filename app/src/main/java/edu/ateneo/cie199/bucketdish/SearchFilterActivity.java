@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,6 +29,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class SearchFilterActivity extends AppCompatActivity implements View.OnClickListener{
@@ -68,19 +72,11 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                     });
         }
 
-        Spinner priceComp = (Spinner) findViewById(R.id.spn_pricecomp);
-        Spinner cuisine = (Spinner) findViewById(R.id.spn_cuisine);
-        EditText price = (EditText) findViewById(R.id.edt_price);
-        CheckBox delivers = (CheckBox) findViewById(R.id.chk_delivers);
-
-        final Boolean hasDelivery = delivers.isChecked();
-        String priceCompVal = priceComp.getSelectedItem().toString();
-        final Boolean isGreaterThanComp = (priceCompVal == "More Than") ?  true : false;
-        final String cuisineVal = cuisine.getSelectedItem().toString();
-        final Double budget = Double.parseDouble(price.getText().toString());
-
         Button searchButton = (Button) findViewById(R.id.btn_search);
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
+
+
+        final Intent resultActivity = new Intent(SearchFilterActivity.this, SearchResultActivity.class);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,31 +94,43 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                     // to handle the case where the user grants the permission. See the documentation
                     // for ActivityCompat#requestPermissions for more details.
 
-                    mFusedLocationClient.getLastLocation()
-                            .addOnSuccessListener(SearchFilterActivity.this, new OnSuccessListener<Location>() {
-                                @Override
-                                public void onSuccess(Location location) {
-                                    // Got last known location. In some rare situations this can be null.
-                                    if (location != null) {
-                                        // Logic to handle location object
-                                        // Do something here
-                                        try {
-                                            setAppRestaurantsWithFilters(
-                                                    location.getLatitude(),
-                                                    location.getLongitude(),
-                                                    budget,
-                                                    cuisineVal,
-                                                    hasDelivery,
-                                                    500,
-                                                    isGreaterThanComp
-                                            );
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                }
+                mFusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(SearchFilterActivity.this, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                // Got last known location. In some rare situations this can be null.
+                                if (location != null) {
+                                    // Logic to handle location object
+                                    // Do something here
+                                    Spinner priceComp = (Spinner) findViewById(R.id.spn_pricecomp);
+                                    Spinner cuisine = (Spinner) findViewById(R.id.spn_cuisine);
+                                    EditText price = (EditText) findViewById(R.id.edt_price);
+                                    CheckBox delivers = (CheckBox) findViewById(R.id.chk_delivers);
+
+                                    final Boolean hasDelivery = delivers.isChecked();
+                                    String priceCompVal = priceComp.getSelectedItem().toString();
+                                    final Boolean isGreaterThanComp = (priceCompVal == "More Than") ?  true : false;
+                                    final String cuisineVal = cuisine.getSelectedItem().toString();
+                                    final Double budget = Double.parseDouble(price.getText().toString());
+
+                                    try {
+                                        setAppRestaurantsWithFilters(
+                                                location.getLatitude(),
+                                                location.getLongitude(),
+                                                budget,
+                                                cuisineVal,
+                                                hasDelivery,
+                                                500,
+                                                isGreaterThanComp,
+                                                resultActivity
+                                        );
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
                                 }
-                            });
-                }
+                            }
+                        });
             }
         });
     }
@@ -233,16 +241,16 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
     public void setAppRestaurantsWithFilters(double lat, double lon,
                                              final double budget, String cuisines,
                                              final Boolean hasDelivery,
-                                             int radius_meters, final Boolean isGreaterThan) throws JSONException {
+                                             double radius_meters, final Boolean isGreaterThan,
+                                             final Intent resultActivity) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://www.zomato.com/search";
+        String url ="https://developers.zomato.com/api/v2.1/search?lat="+lat+"&lon="+lon+"&radius="+radius_meters+"&cuisine="+cuisines;
         JSONObject jsonRequest = new JSONObject();
-
-        jsonRequest.put("user-key", zomatoToken);
-        jsonRequest.put("lat", lat);
-        jsonRequest.put("lon", lon);
-        jsonRequest.put("radius", radius_meters);
-        jsonRequest.put("cuisines", cuisines);
+//        jsonRequest.put("user-key", zomatoToken);
+//        jsonRequest.put("lat", lat);
+//        jsonRequest.put("lon", lon);
+//        jsonRequest.put("radius", radius_meters);
+//        jsonRequest.put("cuisines", cuisines);
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -250,15 +258,17 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void onResponse(JSONObject response) {
                         /* Things u wanna do */
+
+                        Log.d("Confirmation", "You have reached up to this point");
                         try {
-                            JSONArray temp_res = response.getJSONArray("nearby_restaurants");
+                            JSONArray temp_res = response.getJSONArray("restaurants");
                             JSONArray filtered = new JSONArray();
                             double res_cost;
                             boolean res_deli;
                             String res_cuisine;
 
                             for(int i = 0; i < temp_res.length(); i++ ){
-                                res_cost = Double.parseDouble(temp_res.getJSONObject(i).get("average_cost_for_two").toString())/2;
+                                res_cost = Double.parseDouble(temp_res.getJSONObject(i).getJSONObject("restaurant").get("average_cost_for_two").toString())/2;
                                 if(isGreaterThan) {
                                     if (res_cost < budget) {
                                         temp_res.remove(i);
@@ -269,7 +279,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                     }
                                 }
 
-                                res_deli = Boolean.parseBoolean(temp_res.getJSONObject(i).get("has_online_delivery").toString());
+                                res_deli = Boolean.parseBoolean(temp_res.getJSONObject(i).getJSONObject("restaurant").get("has_online_delivery").toString());
                                 if(res_deli != hasDelivery){
                                     temp_res.remove(i);
                                 }
@@ -277,17 +287,17 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                             JSONArray filtered_restaurants = temp_res;
 
                             Random rand = new Random();
-                            int index = rand.nextInt(response.getJSONArray("nearby_restaurants").length());
+                            int index = rand.nextInt(response.getJSONArray("restaurants").length());
                             JSONObject selected = filtered_restaurants.getJSONObject(index);
 
-                            String res_name = selected.getString("name");
-                            JSONObject loc = selected.getJSONObject("location");
+                            Log.d("selected", selected.toString(4));
+                            String res_name = selected.getJSONObject("restaurant").getString("name");
+                            JSONObject loc = selected.getJSONObject("restaurant").getJSONObject("location");
                             String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
-                            String res_cuisines = selected.getString("cuisines");
-                            Double res_budget = Double.parseDouble(selected.getString("average_cost_for_two"))/2;
+                            String res_cuisines = selected.getJSONObject("restaurant").getString("cuisines");
+                            Double res_budget = Double.parseDouble(selected.getJSONObject("restaurant").getString("average_cost_for_two"))/2;
 
                             random_restaurant = new Restaurant(res_name, res_location, res_cuisines, res_budget);
-                            Intent resultActivity = new Intent(SearchFilterActivity.this, SearchResultActivity.class);
 
                             resultActivity.putExtra("name", res_name);
                             resultActivity.putExtra("location", res_location);
@@ -297,6 +307,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -305,7 +316,16 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                         // TODO Auto-generated method stub
 
                     }
-                });
+                }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("user-key", zomatoToken);
+                return headers;
+            }
+        };
 
         // Add the request to the RequestQueue.
         queue.add(jsObjRequest);

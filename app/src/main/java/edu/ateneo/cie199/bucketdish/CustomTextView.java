@@ -24,7 +24,7 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView 
     }
 
     private void setFont() {
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/DK Smiling Cat.otf");
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/smilingcats.otf");
         setTypeface(font, Typeface.NORMAL);
         setTextColor(Color.WHITE);
     }
