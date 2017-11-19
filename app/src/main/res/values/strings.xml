@@ -19,4 +19,33 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string-array name="comparisons">
+        <item>More Than</item>
+        <item>Less Than</item>
+    </string-array>
+
+    <string-array name="cuisines">
+        <item>American</item>
+        <item>Asian</item>
+        <item>BBQ</item>
+        <item>Beverages</item>
+        <item>Burger</item>
+        <item>Cafe</item>
+        <item>Chinese</item>
+        <item>Dessert</item>
+        <item>Fast Food</item>
+        <item>Filipino</item>
+        <item>Greek</item>
+        <item>Healthy Food</item>
+        <item>Ice Cream</item>
+        <item>Indian</item>
+        <item>Italian</item>
+        <item>Japanese</item>
+        <item>Sushi</item>
+        <item>Ramen</item>
+        <item>Korean</item>
+        <item>Pizza</item>
+        <item>Street Food</item>
+    </string-array>
 </resources>
