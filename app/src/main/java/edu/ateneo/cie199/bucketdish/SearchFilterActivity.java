@@ -244,7 +244,8 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                              double radius_meters, final Boolean isGreaterThan,
                                              final Intent resultActivity) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://developers.zomato.com/api/v2.1/search?lat="+lat+"&lon="+lon+"&radius="+radius_meters+"&cuisine="+cuisines;
+        String url ="https://developers.zomato.com/api/v2.1/search?lat="+lat+"&lon="+lon+"&radius="
+                +radius_meters+"&cuisine="+cuisines+"&sort=real_distance&oder=asc&count=1";
         JSONObject jsonRequest = new JSONObject();
 //        jsonRequest.put("user-key", zomatoToken);
 //        jsonRequest.put("lat", lat);
@@ -266,8 +267,8 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                             double res_cost;
                             boolean res_deli;
                             String res_cuisine;
-
-                            for(int i = 0; i < temp_res.length(); i++ ){
+                            int iterations = temp_res.length();
+                            for(int i = 0; i < iterations; i++ ){
                                 res_cost = Double.parseDouble(temp_res.getJSONObject(i).getJSONObject("restaurant").get("average_cost_for_two").toString())/2;
                                 if(isGreaterThan) {
                                     if (res_cost < budget) {
@@ -283,14 +284,16 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 if(res_deli != hasDelivery){
                                     temp_res.remove(i);
                                 }
+                                iterations = temp_res.length();
                             }
                             JSONArray filtered_restaurants = temp_res;
 
                             Random rand = new Random();
-                            int index = rand.nextInt(response.getJSONArray("restaurants").length());
+                            int index = rand.nextInt(filtered_restaurants.length());
+
+                            Log.d("selected", filtered_restaurants.toString(4));;
                             JSONObject selected = filtered_restaurants.getJSONObject(index);
 
-                            Log.d("selected", selected.toString(4));
                             String res_name = selected.getJSONObject("restaurant").getString("name");
                             JSONObject loc = selected.getJSONObject("restaurant").getJSONObject("location");
                             String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
@@ -301,7 +304,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 
                             resultActivity.putExtra("name", res_name);
                             resultActivity.putExtra("location", res_location);
-                            resultActivity.putExtra("price", res_budget);
+                            resultActivity.putExtra("price", res_budget.toString());
 
                             startActivity(resultActivity);
                         } catch (JSONException e) {
