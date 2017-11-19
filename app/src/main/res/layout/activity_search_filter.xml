@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundimg"
+
     tools:context="edu.ateneo.cie199.bucketdish.SearchFilterActivity">
 
-
-    <edu.ateneo.cie199.bucketdish.CustomTextView
+    <!--android:background="@drawable/backgroundimg"-->
+    <TextView
         android:id="@+id/lbl_search_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,14 +17,16 @@
         android:layout_marginStart="15sp"
         android:layout_marginTop="15sp"
         android:text="Search Filters"
+        android:textColor="@android:color/background_light"
         android:textSize="36sp" />
 
-    <edu.ateneo.cie199.bucketdish.CustomTextView
+    <TextView
         android:id="@+id/lbl_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/lbl_search_filter"
         android:layout_below="@+id/lbl_search_filter"
+        android:textColor="@android:color/background_light"
         android:layout_marginTop="60sp"
         android:text="Price"
         android:textSize="24sp" />
@@ -34,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/lbl_price"
         android:layout_below="@+id/lbl_price"
+
         android:layout_marginRight="15sp"
         android:layout_marginTop="15sp"
         android:orientation="horizontal"
@@ -55,11 +58,12 @@
             android:inputType="numberDecimal" />
     </LinearLayout>
 
-    <edu.ateneo.cie199.bucketdish.CustomTextView
+    <TextView
         android:id="@+id/lbl_Cuisine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/linearLayout"
+        android:textColor="@android:color/background_light"
         android:layout_centerVertical="true"
         android:text="Cuisine/Theme"
         android:textSize="24sp" />
@@ -102,7 +106,17 @@
         android:layout_marginTop="20sp"
         android:orientation="horizontal">
 
-        <edu.ateneo.cie199.bucketdish.CustomButton
+        <!--<edu.ateneo.cie199.bucketdish.CustomButton-->
+            <!--android:id="@+id/btn_search"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignStart="@+id/chk_delvers"-->
+            <!--android:layout_below="@+id/chk_delvers"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_marginRight="7.5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Search" />-->
+        <Button
             android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,7 +127,15 @@
             android:layout_weight="1"
             android:text="Search" />
 
-        <edu.ateneo.cie199.bucketdish.CustomButton
+        <!--<edu.ateneo.cie199.bucketdish.CustomButton-->
+            <!--android:id="@+id/btn_cancel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="7.5dp"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Cancel" />-->
+        <Button
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

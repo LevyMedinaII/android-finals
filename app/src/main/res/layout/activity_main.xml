@@ -4,24 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundimg"
     tools:context="edu.ateneo.cie199.bucketdish.MainActivity">
 
+    <!--android:background="@drawable/backgroundimg"-->
     <edu.ateneo.cie199.bucketdish.CustomButton
         android:id="@+id/imgbtn_randsearch"
-        android:layout_width="350sp"
-        android:layout_height="125sp"
+        android:layout_width="350dp"
+        android:layout_height="125dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:background="@drawable/btnbktlst"
         android:text="Find a place to eat"
         android:textSize="30sp" />
-
     <edu.ateneo.cie199.bucketdish.CustomButton
         android:id="@+id/imgbtn_bucketlist"
-        android:layout_width="350sp"
-        android:layout_height="125sp"
+        android:layout_width="350dp"
+        android:layout_height="125dp"
         android:layout_alignStart="@+id/imgbtn_randsearch"
         android:layout_below="@+id/imgbtn_randsearch"
         android:layout_marginTop="20dp"
@@ -31,8 +30,8 @@
 
     <edu.ateneo.cie199.bucketdish.CustomButton
         android:id="@+id/imgbtn_favorites"
-        android:layout_width="350sp"
-        android:layout_height="125sp"
+        android:layout_width="350dp"
+        android:layout_height="125dp"
         android:layout_alignStart="@+id/imgbtn_bucketlist"
         android:layout_below="@+id/imgbtn_bucketlist"
         android:layout_marginTop="20dp"
@@ -48,14 +47,52 @@
         android:layout_marginTop="26dp"
         android:text="Logout" />
 
-    <edu.ateneo.cie199.bucketdish.CustomTextView
-        android:id="@+id/lbl_random"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imgbtn_bucketlist"
-        android:layout_alignStart="@+id/imgbtn_randsearch"
-        android:text="Find a Restaurant"
-        android:textSize="30sp" />
+    <!--<Button-->
+        <!--android:id="@+id/imgbtn_randsearch"-->
+        <!--android:layout_width="350sp"-->
+        <!--android:layout_height="125sp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:text="Find a place to eat"-->
+        <!--android:textSize="30sp" />-->
+    <!--<Button-->
+        <!--android:id="@+id/imgbtn_bucketlist"-->
+        <!--android:layout_width="350sp"-->
+        <!--android:layout_height="125sp"-->
+        <!--android:layout_alignStart="@+id/imgbtn_randsearch"-->
+        <!--android:layout_below="@+id/imgbtn_randsearch"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:text="UNDER CONSTRUCTION"-->
+        <!--android:textSize="28sp" />-->
+    <!--<Button-->
+        <!--android:id="@+id/imgbtn_favorites"-->
+        <!--android:layout_width="350sp"-->
+        <!--android:layout_height="125sp"-->
+        <!--android:layout_alignStart="@+id/imgbtn_bucketlist"-->
+        <!--android:layout_below="@+id/imgbtn_bucketlist"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:text="UNDER CONSTRUCTION"-->
+        <!--android:textSize="28sp" />-->
+    <!--<Button-->
+        <!--android:id="@+id/btn_logout"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignEnd="@+id/imgbtn_favorites"-->
+        <!--android:layout_below="@+id/imgbtn_favorites"-->
+        <!--android:layout_marginTop="26dp"-->
+        <!--android:text="Logout"  />-->
+
+
+    <!--<edu.ateneo.cie199.bucketdish.CustomTextView-->
+        <!--android:id="@+id/lbl_random"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/imgbtn_bucketlist"-->
+        <!--android:layout_alignStart="@+id/imgbtn_randsearch"-->
+        <!--android:text="Find a Restaurant"-->
+        <!--android:textSize="30sp" />-->
+
 
 
 </RelativeLayout>
