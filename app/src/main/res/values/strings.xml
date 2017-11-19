@@ -26,6 +26,7 @@
     </string-array>
 
     <string-array name="cuisines">
+        <item>Any</item>
         <item>American</item>
         <item>Asian</item>
         <item>BBQ</item>

@@ -239,13 +239,13 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
         queue.add(jsObjRequest);
     }
     public void setAppRestaurantsWithFilters(double lat, double lon,
-                                             final double budget, String cuisines,
+                                             final double budget, final String cuisines,
                                              final Boolean hasDelivery,
                                              double radius_meters, final Boolean isGreaterThan,
                                              final Intent resultActivity) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://developers.zomato.com/api/v2.1/search?lat="+lat+"&lon="+lon+"&radius="
-                +radius_meters+"&cuisine="+cuisines+"&sort=real_distance&oder=asc&count=10";
+                +radius_meters+"&cuisine="+getCuisineID(cuisines)+"&sort=real_distance&oder=asc&count=10";
         JSONObject jsonRequest = new JSONObject();
 //        jsonRequest.put("user-key", zomatoToken);
 //        jsonRequest.put("lat", lat);
@@ -275,7 +275,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                     break;
                                 }
                                 res_cost = Double.parseDouble(temp_res.getJSONObject(i).getJSONObject("restaurant").get("average_cost_for_two").toString())/2;
-
                                 res_deli = Boolean.parseBoolean(temp_res.getJSONObject(i).getJSONObject("restaurant").get("has_online_delivery").toString());
                                 if(isGreaterThan) {
                                     if (res_cost < budget) {
@@ -283,12 +282,15 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                         i=0;
                                     }
                                 } else {
-                                    if(res_cost > budget) {
+                                    if (res_cost > budget) {
                                         temp_res.remove(i);
-                                        i=0;
-                                    } else if(res_deli != hasDelivery){
+                                        i = 0;
+                                    } else if (res_deli != hasDelivery) {
                                         temp_res.remove(i);
-                                        i=0;
+                                        i = 0;
+                                    } else if ((temp_res.getJSONObject(i).getJSONObject("restaurant").getString("cuisines").toLowerCase().contains(cuisines.toLowerCase()))) {
+                                        temp_res.remove(i);
+                                        i = 0;
                                     }
                                 }
                                 iterations = temp_res.length();
@@ -382,7 +384,31 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
             Intent logoutActivity = new Intent(SearchFilterActivity.this, LoginActivity.class);
             startActivity(logoutActivity);
         }
-
-
+    }
+    public String getCuisineID(String cuisine){
+        HashMap<String, String> cuisineMap = new HashMap<>();
+        cuisineMap.put("Any","");
+        cuisineMap.put("American","1");
+        cuisineMap.put("Asian","3");
+        cuisineMap.put("BBQ","193");
+        cuisineMap.put("Beverages","270");
+        cuisineMap.put("Burger","168");
+        cuisineMap.put("Cafe","30");
+        cuisineMap.put("Chinese","25");
+        cuisineMap.put("Dessert","100");
+        cuisineMap.put("Fast Food","40");
+        cuisineMap.put("Filipino","112");
+        cuisineMap.put("Greek","156");
+        cuisineMap.put("Healthy Food","143");
+        cuisineMap.put("Ice Cream","233");
+        cuisineMap.put("Indian","148");
+        cuisineMap.put("Italian","55");
+        cuisineMap.put("Japanese","60");
+        cuisineMap.put("Sushi","177");
+        cuisineMap.put("Ramen","320");
+        cuisineMap.put("Korean","67");
+        cuisineMap.put("Pizza","82");
+        cuisineMap.put("Street Food","90");
+        return cuisineMap.get(cuisine);
     }
 }
