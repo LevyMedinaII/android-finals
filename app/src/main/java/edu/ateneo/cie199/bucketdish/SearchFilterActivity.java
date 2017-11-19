@@ -245,7 +245,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                              final Intent resultActivity) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://developers.zomato.com/api/v2.1/search?lat="+lat+"&lon="+lon+"&radius="
-                +radius_meters+"&cuisine="+cuisines+"&sort=real_distance&oder=asc&count=1";
+                +radius_meters+"&cuisine="+cuisines+"&sort=real_distance&oder=asc&count=10";
         JSONObject jsonRequest = new JSONObject();
 //        jsonRequest.put("user-key", zomatoToken);
 //        jsonRequest.put("lat", lat);
@@ -268,45 +268,53 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                             boolean res_deli;
                             String res_cuisine;
                             int iterations = temp_res.length();
+
+                            Log.d("selected", temp_res.toString(4));
                             for(int i = 0; i < iterations; i++ ){
+                                if(iterations == 0) {
+                                    break;
+                                }
                                 res_cost = Double.parseDouble(temp_res.getJSONObject(i).getJSONObject("restaurant").get("average_cost_for_two").toString())/2;
+
+                                res_deli = Boolean.parseBoolean(temp_res.getJSONObject(i).getJSONObject("restaurant").get("has_online_delivery").toString());
                                 if(isGreaterThan) {
                                     if (res_cost < budget) {
                                         temp_res.remove(i);
+                                        i=0;
                                     }
                                 } else {
                                     if(res_cost > budget) {
                                         temp_res.remove(i);
+                                        i=0;
+                                    } else if(res_deli != hasDelivery){
+                                        temp_res.remove(i);
+                                        i=0;
                                     }
-                                }
-
-                                res_deli = Boolean.parseBoolean(temp_res.getJSONObject(i).getJSONObject("restaurant").get("has_online_delivery").toString());
-                                if(res_deli != hasDelivery){
-                                    temp_res.remove(i);
                                 }
                                 iterations = temp_res.length();
                             }
                             JSONArray filtered_restaurants = temp_res;
 
                             Random rand = new Random();
-                            int index = rand.nextInt(filtered_restaurants.length());
+                            if(filtered_restaurants.length()>0) {
+                                int index = rand.nextInt(filtered_restaurants.length());
 
-                            Log.d("selected", filtered_restaurants.toString(4));;
-                            JSONObject selected = filtered_restaurants.getJSONObject(index);
+                                JSONObject selected = filtered_restaurants.getJSONObject(index);
 
-                            String res_name = selected.getJSONObject("restaurant").getString("name");
-                            JSONObject loc = selected.getJSONObject("restaurant").getJSONObject("location");
-                            String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
-                            String res_cuisines = selected.getJSONObject("restaurant").getString("cuisines");
-                            Double res_budget = Double.parseDouble(selected.getJSONObject("restaurant").getString("average_cost_for_two"))/2;
+                                String res_name = selected.getJSONObject("restaurant").getString("name");
+                                JSONObject loc = selected.getJSONObject("restaurant").getJSONObject("location");
+                                String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
+                                String res_cuisines = selected.getJSONObject("restaurant").getString("cuisines");
+                                Double res_budget = Double.parseDouble(selected.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
 
-                            random_restaurant = new Restaurant(res_name, res_location, res_cuisines, res_budget);
+                                random_restaurant = new Restaurant(res_name, res_location, res_cuisines, res_budget);
 
-                            resultActivity.putExtra("name", res_name);
-                            resultActivity.putExtra("location", res_location);
-                            resultActivity.putExtra("price", res_budget.toString());
+                                resultActivity.putExtra("name", res_name);
+                                resultActivity.putExtra("location", res_location);
+                                resultActivity.putExtra("price", res_budget.toString());
 
-                            startActivity(resultActivity);
+                                startActivity(resultActivity);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
