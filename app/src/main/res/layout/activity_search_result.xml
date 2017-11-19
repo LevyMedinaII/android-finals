@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgimg"
+    tools:context="edu.ateneo.cie199.bucketdish.SearchResultActivity">
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:text="Restawrant"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="30sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_restaurant"
+        android:layout_below="@+id/txv_restaurant"
+        android:layout_marginTop="15dp"
+        android:text="address"
+        android:textSize="24sp" />
+
+    <RatingBar
+        android:id="@+id/rb_averate"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_address"
+        android:layout_below="@+id/txv_address"
+        android:layout_marginTop="15sp"
+        android:clickable="false"
+        android:isIndicator="true"
+        android:rating="2" />
+
+    <!--android:theme="@style/ratingbar"-->
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/lbl_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rb_averate"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:text="Comments"
+        android:textSize="24sp" />
+
+    <!--android:theme="@style/textview"-->
+
+    <ListView
+        android:id="@+id/lsv_commentrating"
+        android:layout_width="match_parent"
+        android:layout_height="200sp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lbl_comments"
+        android:layout_marginBottom="15sp"
+
+        android:layout_marginTop="15sp" />
+
+    <!--android:theme="@style/ListFont"-->
+
+    <CheckBox
+        android:id="@+id/chk_bucketdish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/txv_restaurant"
+        android:layout_toEndOf="@+id/rb_averate"
+        android:text="Bucket Dished"
+        android:buttonTint="@android:color/white"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/btn_research"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lsv_commentrating"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginTop="15sp"
+        android:text="Another"
+        android:textSize="20sp" />
+
+</RelativeLayout>

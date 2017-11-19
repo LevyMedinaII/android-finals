@@ -187,6 +187,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
         int i = view.getId();
         if (i == R.id.btn_search) {
 
+
         } else if (i == R.id.btn_cancel) {
             Intent logoutActivity = new Intent(SearchFilterActivity.this, LoginActivity.class);
             startActivity(logoutActivity);
