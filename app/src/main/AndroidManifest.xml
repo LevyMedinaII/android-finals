@@ -31,7 +31,7 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginActivity3"></activity>
+        <activity android:name=".SearchFilterActivity"></activity>
     </application>
 
 </manifest>
