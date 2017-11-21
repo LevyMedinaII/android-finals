@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity  {
                     @Override
                     public void onClick(View v) {
                         Intent launchSearchFilterActivity = new Intent(MainActivity.this, SearchFilterActivity.class);
+                        finish();
                         startActivity(launchSearchFilterActivity);
+
                     }
                 }
         );

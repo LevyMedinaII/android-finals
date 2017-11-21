@@ -78,9 +78,19 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 
         final Intent resultActivity = new Intent(SearchFilterActivity.this, SearchResultActivity.class);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent logoutActivity = new Intent(SearchFilterActivity.this, LoginActivity.class);
+                startActivity(logoutActivity);
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Log.d("THIS IS THE REQUEST", "dsa" );
                 if (ActivityCompat.checkSelfPermission(SearchFilterActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED
                         &&
@@ -99,28 +109,30 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                         .addOnSuccessListener(SearchFilterActivity.this, new OnSuccessListener<Location>() {
                             @Override
                             public void onSuccess(Location location) {
+                                Log.d("THIS IS THE REQUEST", "WOWOWOOW" );
                                 // Got last known location. In some rare situations this can be null.
                                 if (location != null) {
                                     // Logic to handle location object
                                     // Do something here
-                                    Spinner priceComp = (Spinner) findViewById(R.id.spn_pricecomp);
+                                    //Spinner priceComp = (Spinner) findViewById(R.id.spn_pricecomp);
                                     Spinner cuisine = (Spinner) findViewById(R.id.spn_cuisine);
                                     EditText price = (EditText) findViewById(R.id.edt_price);
                                     CheckBox delivers = (CheckBox) findViewById(R.id.chk_delivers);
 
                                     final Boolean hasDelivery = delivers.isChecked();
-                                    String priceCompVal = priceComp.getSelectedItem().toString();
-                                    boolean isGreaterThanComp=false;
+                                    //String priceCompVal = priceComp.getSelectedItem().toString();
+                                    final boolean isGreaterThanComp=false;
                                     //final Boolean isGreaterThanComp = (priceCompVal == "More Than") ?  true : false;
-                                    if(priceCompVal.matches("More Than"))
-                                    {
-                                        isGreaterThanComp=true;
-                                    }
+//                                    if(priceCompVal"More Than")
+//                                    {
+//                                        isGreaterThanComp=true;
+//                                    }
 
 
 
                                     final String cuisineVal = cuisine.getSelectedItem().toString();
                                     final Double budget = Double.parseDouble(price.getText().toString());
+                                    Log.d("THIS IS THE REQUEST", "AAAA" );
 
                                     try {
                                         setAppRestaurantsWithFilters(
@@ -130,12 +142,16 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                                 cuisineVal,
                                                 hasDelivery,
                                                 500,
-                                                isGreaterThanComp,
+                                                false,
                                                 resultActivity
                                         );
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                }
+                                else
+                                {
+                                    Log.d("THIS IS THE REQUEST", "WOW pano yan" );
                                 }
                             }
                         });
@@ -285,23 +301,13 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 }
                                 res_cost = Double.parseDouble(temp_res.getJSONObject(i).getJSONObject("restaurant").get("average_cost_for_two").toString())/2;
                                 res_deli = Boolean.parseBoolean(temp_res.getJSONObject(i).getJSONObject("restaurant").get("has_online_delivery").toString());
-                                if(isGreaterThan==Boolean.TRUE)
-                                {
 
-                                    Log.d("Greater Than", res_cost + " vs " +budget);
-                                    if (res_cost < budget) {
-                                        temp_res.remove(i);
-                                        i=0;
-                                        Log.d("RES IS LOST", res_cost + " < " +budget);
-                                    }
-                                }
-                                else {
-                                    Log.d("Lesser Than " + isGreaterThan, res_cost + " vs " +budget );
-                                    if (res_cost > budget) {
-                                        temp_res.remove(i);
-                                        i = 0;
-                                        Log.d("BUDGET LOST", res_cost + " > " +budget);
-                                    }
+                                Log.d(iterations+" and " + i, temp_res.getJSONObject(i).getJSONObject("restaurant").get("name")+ "" + res_cost + " vs " +budget );
+                                if (res_cost > budget) {
+                                    temp_res.remove(i);
+                                    i = 0;
+                                    Log.d("BUDGET LOST", res_cost + " > " +budget);
+
                                 }
 
 
@@ -314,8 +320,9 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 //                                    temp_res.remove(i);
 //                                    i = 0;
 //                                }
-                                }
                                 iterations = temp_res.length();
+                                }
+                            iterations = temp_res.length();
 
 
 
@@ -403,13 +410,12 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 
     public void onClick(View view) {
         int i = view.getId();
-        if (i == R.id.btn_search) {
-
-
-        } else if (i == R.id.btn_cancel) {
-            Intent logoutActivity = new Intent(SearchFilterActivity.this, LoginActivity.class);
-            startActivity(logoutActivity);
-        }
+//        if (i == R.id.btn_search) {
+//
+//
+//        } else if (i == R.id.btn_cancel) {
+//
+//        }
     }
     public String getCuisineID(String cuisine){
         HashMap<String, String> cuisineMap = new HashMap<>();

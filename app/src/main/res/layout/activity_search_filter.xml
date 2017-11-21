@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/lbl_search_filter"
         android:layout_below="@+id/lbl_search_filter"
-        android:textColor="@android:color/background_light"
         android:layout_marginTop="60sp"
-        android:text="Price"
+        android:text="Average Price for 1 person"
+        android:textColor="@android:color/background_light"
         android:textSize="24sp" />
 
     <LinearLayout
@@ -42,12 +42,13 @@
         android:orientation="horizontal"
         android:id="@+id/linearLayout">
 
-        <Spinner
-            android:id="@+id/spn_pricecomp"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:entries="@array/comparisons"
-            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/txv_less"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Less Than"
+            android:textColor="#ffffff" />
 
         <EditText
             android:id="@+id/edt_price"
@@ -56,7 +57,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:text="0" />
+            android:text="250"
+            android:textColor="#ffffff" />
     </LinearLayout>
 
     <TextView
@@ -84,6 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"
             android:layout_weight="1"
+            android:background="?attr/colorBackgroundFloating"
             android:entries="@array/cuisines" />
     </LinearLayout>
 
