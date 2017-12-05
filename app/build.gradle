@@ -36,12 +36,4 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.google.firebase:firebase-auth:11.6.0'
 }
-
-
-
-
-<<<<<<< HEAD
-
-=======
->>>>>>> b8ce395870917fee06f64a6c214241f2d78c633a
 apply plugin: 'com.google.gms.google-services'
