@@ -41,7 +41,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
 
         final Intent receivedQueries = getIntent();
-        TextView name = (TextView) findViewById(R.id.txv_restaurant);
+        TextView name = (TextView) findViewById(R.id.txv_name);
         TextView price = (TextView) findViewById(R.id.txv_price);
         TextView address = (TextView) findViewById(R.id.txv_address);
         TextView cuisines = (TextView) findViewById(R.id.txv_cuisines);
@@ -90,7 +90,7 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         });
 
-        Button another = (Button) findViewById(R.id.btn_research);
+        Button another = (Button) findViewById(R.id.btn_back);
         Button newFilter = (Button) findViewById(R.id.btn_newFilter);
         final Button directions = (Button) findViewById(R.id.btn_directions);
 
@@ -210,7 +210,7 @@ public class SearchResultActivity extends AppCompatActivity {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==2)
         {
-            TextView name = (TextView) findViewById(R.id.txv_restaurant);
+            TextView name = (TextView) findViewById(R.id.txv_name);
             TextView price = (TextView) findViewById(R.id.txv_price);
             TextView address = (TextView) findViewById(R.id.txv_address);
             TextView cuisines = (TextView) findViewById(R.id.txv_cuisines);

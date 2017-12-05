@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,9 +14,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 public class SearchThreeActivity extends AppCompatActivity {
 
@@ -36,7 +30,7 @@ public class SearchThreeActivity extends AppCompatActivity {
 
         final Intent receivedQueries = getIntent();
 
-        TextView name = (TextView) findViewById(R.id.txv_restaurant);
+        TextView name = (TextView) findViewById(R.id.txv_name);
         TextView price = (TextView) findViewById(R.id.txv_price);
         TextView address = (TextView) findViewById(R.id.txv_address);
         TextView cuisines = (TextView) findViewById(R.id.txv_cuisines);
@@ -74,7 +68,7 @@ public class SearchThreeActivity extends AppCompatActivity {
 //        JSONArray myBucketList = app.getMyLists().names();
 //        ArrayList<String> restaurantsInList = app.getMyLists().
 
-        Button another = (Button) findViewById(R.id.btn_research);
+        Button another = (Button) findViewById(R.id.btn_back);
         Button newFilter = (Button) findViewById(R.id.btn_newFilter);
 
 //        newFilter.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +173,7 @@ public class SearchThreeActivity extends AppCompatActivity {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==2)
         {
-            TextView name = (TextView) findViewById(R.id.txv_restaurant);
+            TextView name = (TextView) findViewById(R.id.txv_name);
             TextView price = (TextView) findViewById(R.id.txv_price);
             TextView address = (TextView) findViewById(R.id.txv_address);
             TextView cuisines = (TextView) findViewById(R.id.txv_cuisines);
