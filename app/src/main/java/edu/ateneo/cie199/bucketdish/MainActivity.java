@@ -119,24 +119,24 @@ public class MainActivity extends AppCompatActivity  {
 
                 }
                 app.setBucketList(container);
-                HashMap listValue = (HashMap) dataSnapshot.getValue();
-                Iterator it = listValue.entrySet().iterator();
-                JSONObject jsonObject = new JSONObject();
-                while (it.hasNext()) {
-                    Map.Entry pairs = (Map.Entry)it.next();
-                    try {
-                        jsonObject.put( (String) pairs.getKey(), pairs.getValue() );
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Log.d("ListValue", "Value is: " + listValue);
+//                HashMap listValue = (HashMap) dataSnapshot.getValue();
+//                Iterator it = listValue.entrySet().iterator();
+//                JSONObject jsonObject = new JSONObject();
+//                while (it.hasNext()) {
+//                    Map.Entry pairs = (Map.Entry)it.next();
+//                    try {
+//                        jsonObject.put( (String) pairs.getKey(), pairs.getValue() );
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                Log.d("ListValue", "Value is: " + listValue);
+//
+//                    Log.d("JSONObject "+ jsonObject.toString(), "Value is:");
 
-                    Log.d("JSONObject "+ jsonObject.toString(), "Value is:");
 
 
-
-                app.setMyLists(jsonObject);
+                //app.setMyLists(jsonObject);
 //                app.setCollector(listValue);
             }
 

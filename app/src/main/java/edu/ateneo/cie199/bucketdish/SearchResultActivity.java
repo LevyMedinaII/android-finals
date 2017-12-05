@@ -58,18 +58,22 @@ public class SearchResultActivity extends AppCompatActivity {
 
         JSONArray myBucketList = app.getMyLists().names();
 //        ArrayList<String> restaurantsInList = app.getMyLists().
-        int listSize = myBucketList.length();
-        for(int i=0; i<listSize; i++)
+        if(myBucketList!=null)
         {
-            try {
-                if(myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name")))
-                {
-                    chkBucketDish.setChecked(true);
+            int listSize = myBucketList.length();
+            for(int i=0; i<listSize; i++)
+            {
+                try {
+                    if(myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name")))
+                    {
+                        chkBucketDish.setChecked(true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
+
 
         chkBucketDish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
