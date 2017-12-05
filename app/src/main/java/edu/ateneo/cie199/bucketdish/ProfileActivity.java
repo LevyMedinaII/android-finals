@@ -14,9 +14,11 @@ public class ProfileActivity extends AppCompatActivity {
         TextView txvName = (TextView) findViewById(R.id.txv_name);
         TextView txvEmail = (TextView) findViewById(R.id.txv_email);
         TextView txvContact = (TextView) findViewById(R.id.txv_contact);
+        TextView txvUsername = (TextView) findViewById(R.id.txv_username);
 
         txvName.setText("INSERT TEXT HERE");
         txvEmail.setText("INSERT TEXT HERE");
         txvContact.setText("INSERT TEXT HERE");
+        txvUsername.setText("INSERT TEXT HERE");
     }
 }
