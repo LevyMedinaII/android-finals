@@ -1,12 +1,12 @@
 <resources>
     <!--<style name="ratingbar">-->
-        <!--<item name="android:colorControlNormal">@android:color/white</item>-->
-        <!--<item name="android:colorControlActivated">@android:color/white</item>-->
+    <!--<item name="android:colorControlNormal">@android:color/white</item>-->
+    <!--<item name="android:colorControlActivated">@android:color/white</item>-->
     <!--</style>-->
 
     <!--<style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">-->
-        <!--<item name="android:textColor">@color/my_spinner_text_color</item>-->
-        <!--<item name="android:backgroundTint">@color/orange</item>-->
+    <!--<item name="android:textColor">@color/my_spinner_text_color</item>-->
+    <!--<item name="android:backgroundTint">@color/orange</item>-->
     <!--</style>-->
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -16,6 +16,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -26,18 +27,18 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!--<style name="ListFont" parent="@android:style/Widget.ListView">-->
-        <!--<item name="android:textColor">#FF0000</item>-->
-        <!--<item name="android:fontFamily">@font/smilingcats</item>-->
+    <!--<item name="android:textColor">#FF0000</item>-->
+    <!--<item name="android:fontFamily">@font/smilingcats</item>-->
     <!--</style>-->
 
     <!--<style name="textview">-->
-        <!--<item name="android:fontFamily">@font/smilingcats</item>-->
-        <!--<item name="android:textColor">@android:color/white</item>-->
+    <!--<item name="android:fontFamily">@font/smilingcats</item>-->
+    <!--<item name="android:textColor">@android:color/white</item>-->
     <!--</style>-->
 
     <!--<style name="AppTheme.NoActionBar">-->
-        <!--<item name="windowActionBar">false</item>-->
-        <!--<item name="windowNoTitle">true</item>-->
+    <!--<item name="windowActionBar">false</item>-->
+    <!--<item name="windowNoTitle">true</item>-->
     <!--</style>-->
 
     <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
@@ -45,8 +46,8 @@
     <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
     <!--<style name="ListFont" parent="@android:style/Widget.ListView">-->
-        <!--<item name="android:textColor">#FF0000</item>-->
-        <!--<item name="android:fontFamily">@font/smilingcats</item>-->
+    <!--<item name="android:textColor">#FF0000</item>-->
+    <!--<item name="android:fontFamily">@font/smilingcats</item>-->
     <!--</style>-->
 
 </resources>

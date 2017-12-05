@@ -42,6 +42,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
     private static final int REQUEST_FINE_LOCATION=0;
     private Location userLocation;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,12 +78,37 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 
 
         final Intent resultActivity = new Intent(SearchFilterActivity.this, SearchResultActivity.class);
+        final Intent receivedQueries = getIntent();
+        final double budg = receivedQueries.getDoubleExtra("budget",0);
+        final double lon = receivedQueries.getDoubleExtra("longitude", 0);
+        final double lat = receivedQueries.getDoubleExtra("latitude", 0);
+        final String cuisineInts = receivedQueries.getStringExtra("cuisineInts");
+        final Integer research = receivedQueries.getIntExtra("research", 0);
+
+        if(research.equals(1))
+        {
+            try {
+                setAppRestaurantsWithFilters(
+                        lat,
+                        lon,
+                        budg,
+                        cuisineInts,
+                        false,
+                        500,
+                        false,
+                        resultActivity
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent logoutActivity = new Intent(SearchFilterActivity.this, LoginActivity.class);
                 startActivity(logoutActivity);
+                finish();
             }
         });
 
@@ -117,9 +143,9 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                     //Spinner priceComp = (Spinner) findViewById(R.id.spn_pricecomp);
                                     Spinner cuisine = (Spinner) findViewById(R.id.spn_cuisine);
                                     EditText price = (EditText) findViewById(R.id.edt_price);
-                                    CheckBox delivers = (CheckBox) findViewById(R.id.chk_delivers);
+                                    //CheckBox delivers = (CheckBox) findViewById(R.id.chk_delivers);
 
-                                    final Boolean hasDelivery = delivers.isChecked();
+                                    //final Boolean hasDelivery = delivers.isChecked();
                                     //String priceCompVal = priceComp.getSelectedItem().toString();
                                     final boolean isGreaterThanComp=false;
                                     //final Boolean isGreaterThanComp = (priceCompVal == "More Than") ?  true : false;
@@ -140,7 +166,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                                 location.getLongitude(),
                                                 budget,
                                                 cuisineVal,
-                                                hasDelivery,
+                                                false,
                                                 500,
                                                 false,
                                                 resultActivity
@@ -262,7 +288,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
         // Add the request to the RequestQueue.
         queue.add(jsObjRequest);
     }
-    public void setAppRestaurantsWithFilters(double lat, double lon,
+    public void setAppRestaurantsWithFilters(final double lat, final double lon,
                                              final double budget, final String cuisines,
                                              final Boolean hasDelivery,
                                              double radius_meters, final Boolean isGreaterThan,
@@ -347,8 +373,16 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 resultActivity.putExtra("name", res_name);
                                 resultActivity.putExtra("location", res_location);
                                 resultActivity.putExtra("price", res_budget.toString());
+                                resultActivity.putExtra("cuisines", res_cuisines);
+
+                                resultActivity.putExtra("latitude", lat);
+                                resultActivity.putExtra("longitude", lon);
+                                resultActivity.putExtra("cuisineInts", cuisines);
+                                resultActivity.putExtra("budget", budget);
+
 
                                 startActivity(resultActivity);
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

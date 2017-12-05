@@ -72,13 +72,13 @@
         android:textSize="24sp" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lbl_Cuisine"
         android:orientation="horizontal"
         android:paddingLeft="15sp"
-        android:paddingRight="15sp"
-        android:id="@+id/linearLayout2">
+        android:paddingRight="15sp">
 
         <Spinner
             android:id="@+id/spn_cuisine"
@@ -90,56 +90,33 @@
             android:entries="@array/cuisines" />
     </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/chk_delivers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/lbl_Cuisine"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_marginTop="15sp"
-        android:text="Delivers"
-        android:textColor="@android:color/background_light"
-        android:textSize="24sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/chk_delivers"
-        android:layout_below="@+id/chk_delivers"
-        android:layout_marginRight="15sp"
-        android:layout_marginTop="20sp"
+        android:layout_below="@id/linearLayout2"
+        android:layout_marginBottom="15sp"
+        android:layout_marginTop="50dp"
         android:orientation="horizontal">
 
-        <!--<edu.ateneo.cie199.bucketdish.CustomButton-->
-            <!--android:id="@+id/btn_search"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignStart="@+id/chk_delvers"-->
-            <!--android:layout_below="@+id/chk_delvers"-->
-            <!--android:layout_marginLeft="15dp"-->
-            <!--android:layout_marginRight="7.5dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="Search" />-->
-        <Button
+        <edu.ateneo.cie199.bucketdish.CustomButton
             android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/chk_delivers"
-            android:layout_below="@+id/chk_delivers"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="7.5dp"
             android:layout_weight="1"
             android:text="Search" />
+        <!--<Button-->
+        <!--android:id="@+id/btn_search"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="15dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="7.5dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="Search" />-->
 
-        <!--<edu.ateneo.cie199.bucketdish.CustomButton-->
-            <!--android:id="@+id/btn_cancel"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="7.5dp"-->
-            <!--android:layout_marginRight="15dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="Cancel" />-->
-        <Button
+        <edu.ateneo.cie199.bucketdish.CustomButton
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -147,6 +124,14 @@
             android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:text="Cancel" />
+        <!--<Button-->
+        <!--android:id="@+id/btn_cancel"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="7.5dp"-->
+        <!--android:layout_marginRight="15dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="Cancel" />-->
     </LinearLayout>
 
 </RelativeLayout>

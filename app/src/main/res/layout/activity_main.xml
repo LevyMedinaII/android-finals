@@ -14,7 +14,7 @@
         android:layout_height="125dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="Find a place to eat"
         android:textSize="30sp" />
 
@@ -23,32 +23,32 @@
         android:layout_width="350dp"
         android:layout_height="125dp"
         android:layout_alignStart="@+id/imgbtn_randsearch"
-        android:layout_below="@+id/imgbtn_randsearch"
-        android:layout_marginTop="20dp"
-        android:text="UNDER CONSTRUCTION"
+        android:layout_alignTop="@+id/imgbtn_randsearch"
+        android:layout_marginTop="167dp"
+        android:text="Check out your BucketList"
         android:textSize="28sp" />
 
-
     <edu.ateneo.cie199.bucketdish.CustomButton
-        android:id="@+id/imgbtn_favorites"
+        android:id="@+id/imgbtn_newlist"
         android:layout_width="350dp"
         android:layout_height="125dp"
         android:layout_alignStart="@+id/imgbtn_bucketlist"
-        android:layout_below="@+id/imgbtn_bucketlist"
-        android:layout_marginTop="20dp"
-        android:text="UNDER CONSTRUCTION"
+        android:layout_alignTop="@+id/imgbtn_bucketlist"
+        android:layout_marginTop="167dp"
+        android:text="Recommendation List"
         android:textSize="28sp" />
 
-    <edu.ateneo.cie199.bucketdish.CustomButton
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/imgbtn_favorites"
-        android:layout_below="@+id/imgbtn_favorites"
-        android:layout_marginTop="26dp"
-        android:text="Logout" />
 
-    <!--<Button-->
+<edu.ateneo.cie199.bucketdish.CustomButton
+    android:id="@+id/btn_logout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignEnd="@+id/imgbtn_bucketlist"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="37dp"
+    android:text="Logout" />
+
+<!--<Button-->
         <!--android:id="@+id/imgbtn_randsearch"-->
         <!--android:layout_width="350sp"-->
         <!--android:layout_height="125sp"-->
