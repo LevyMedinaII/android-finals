@@ -92,6 +92,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         Button another = (Button) findViewById(R.id.btn_research);
         Button newFilter = (Button) findViewById(R.id.btn_newFilter);
+        final Button directions = (Button) findViewById(R.id.btn_directions);
 
         newFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +117,18 @@ public class SearchResultActivity extends AppCompatActivity {
 
             }
         });
+
+        directions.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent directionsActivity = new Intent(SearchResultActivity.this, DirectionActivity.class);
+                        directionsActivity.putExtra("userlat",lat);
+                        directionsActivity.putExtra("userlong",lon);
+                        startActivity(directionsActivity);
+                    }
+                }
+        );
 
 //        resultActivity.putExtra("name", res_name);
 //        resultActivity.putExtra("location", res_location);
