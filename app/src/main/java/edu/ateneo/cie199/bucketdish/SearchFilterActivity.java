@@ -365,6 +365,8 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 String res_name = selected.getJSONObject("restaurant").getString("name");
                                 JSONObject loc = selected.getJSONObject("restaurant").getJSONObject("location");
                                 String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
+                                Double res_latitude = Double.parseDouble(loc.getString("latitude"));
+                                Double res_longitude = Double.parseDouble(loc.getString("longitude"));
                                 String res_cuisines = selected.getJSONObject("restaurant").getString("cuisines");
                                 Double res_budget = Double.parseDouble(selected.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
 
@@ -374,7 +376,8 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 resultActivity.putExtra("location", res_location);
                                 resultActivity.putExtra("price", res_budget.toString());
                                 resultActivity.putExtra("cuisines", res_cuisines);
-
+                                resultActivity.putExtra("restolat", res_latitude);
+                                resultActivity.putExtra("restolon", res_longitude);
                                 resultActivity.putExtra("latitude", lat);
                                 resultActivity.putExtra("longitude", lon);
                                 resultActivity.putExtra("cuisineInts", cuisines);
