@@ -50,9 +50,6 @@
         <item>Street Food</item>
     </string-array>
     <string name="title_activity_new_list">NewListActivity</string>
-<<<<<<< HEAD
     <string name="title_activity_search_three">SearchThreeActivity</string>
-=======
     <string name="title_activity_direction">Map</string>
->>>>>>> b8ce395870917fee06f64a6c214241f2d78c633a
 </resources>
