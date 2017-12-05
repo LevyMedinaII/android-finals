@@ -36,7 +36,7 @@ import java.util.Random;
 public class SearchFilterActivity extends AppCompatActivity implements View.OnClickListener{
 
     private String zomatoToken = "81c4d728678c315f02168a91d762f025";
-    private Restaurant random_restaurant;
+    private Restaurant random_restaurant, random_restaurant2, random_restaurant3;
     private String[] permissions = {"ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"};
     private FusedLocationProviderClient mFusedLocationClient;
     private static final int REQUEST_FINE_LOCATION=0;
@@ -210,40 +210,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-//    public void setAppRestaurantsNearMe(double lat, double lon) throws JSONException {
-//        RequestQueue queue = Volley.newRequestQueue(this);
-//        String url ="https://www.zomato.com/geocode";
-//        JSONObject jsonRequest = new JSONObject();
-//
-//        jsonRequest.put("user-key", zomatoToken);
-//        jsonRequest.put("lat", lat);
-//        jsonRequest.put("lon", lon);
-//
-//        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-//                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        /* Things u wanna do */
-//                        try {
-//                            restaurants = response.getJSONArray("nearby_restaurants");
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        // TODO Auto-generated method stub
-//
-//                    }
-//                });
-//
-//        // Add the request to the RequestQueue.
-//        queue.add(jsObjRequest);
-//    }
-
     public void setRandomRestaurant(double lat, double lon) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://www.zomato.com/geocode";
@@ -298,12 +264,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                 +radius_meters+"&cuisines="+getCuisineID(cuisines)+"&sort=real_distance&order=asc&count=125";
         Log.d("THIS IS THE REQUEST", url);
         JSONObject jsonRequest = new JSONObject();
-//        jsonRequest.put("user-key", zomatoToken);
-//        jsonRequest.put("lat", lat);
-//        jsonRequest.put("lon", lon);
-//        jsonRequest.put("radius", radius_meters);
-//        jsonRequest.put("cuisines", cuisines);
-
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -335,41 +295,36 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                     Log.d("BUDGET LOST", res_cost + " > " +budget);
 
                                 }
-
-
-
-//                                if (res_deli != hasDelivery) {
-//                                    temp_res.remove(i);
-//                                    i = 0;
-//                                }
-//                                if ((temp_res.getJSONObject(i).getJSONObject("restaurant").getString("cuisines").toLowerCase().contains(cuisines.toLowerCase()))) {
-//                                    temp_res.remove(i);
-//                                    i = 0;
-//                                }
                                 iterations = temp_res.length();
                                 }
                             iterations = temp_res.length();
-
-
-
-
                             JSONArray filtered_restaurants = temp_res;
                             Log.d("FILTERED BABY", filtered_restaurants.toString(4));
 
                             Random rand = new Random();
                             if(filtered_restaurants.length()>0) {
                                 int index = rand.nextInt(filtered_restaurants.length());
+                                int index2 = rand.nextInt(filtered_restaurants.length());
+                                while(index2 == index) {
+                                    index2 =  rand.nextInt(filtered_restaurants.length());
+                                }
+                                int index3 = rand.nextInt(filtered_restaurants.length());
+                                while(index3 == index || index3 == index2) {
+                                    index3 =  rand.nextInt(filtered_restaurants.length());
+                                }
 
                                 JSONObject selected = filtered_restaurants.getJSONObject(index);
+                                JSONObject selected2 = filtered_restaurants.getJSONObject(index2);
+                                JSONObject selected3 = filtered_restaurants.getJSONObject(index3);
 
+                                //result 1
                                 String res_name = selected.getJSONObject("restaurant").getString("name");
                                 JSONObject loc = selected.getJSONObject("restaurant").getJSONObject("location");
                                 String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
                                 String res_cuisines = selected.getJSONObject("restaurant").getString("cuisines");
                                 Double res_budget = Double.parseDouble(selected.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
 
-                                random_restaurant = new Restaurant(res_name, res_location, res_cuisines, res_budget);
-
+                                //putToResults1
                                 resultActivity.putExtra("name", res_name);
                                 resultActivity.putExtra("location", res_location);
                                 resultActivity.putExtra("price", res_budget.toString());
@@ -380,6 +335,153 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 resultActivity.putExtra("cuisineInts", cuisines);
                                 resultActivity.putExtra("budget", budget);
 
+                                startActivity(resultActivity);
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("user-key", zomatoToken);
+                return headers;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        queue.add(jsObjRequest);
+    }
+    public void getAppThreeRestaurantsWithFilters(final double lat, final double lon,
+                                             final double budget, final String cuisines,
+                                             final Boolean hasDelivery,
+                                             double radius_meters, final Boolean isGreaterThan,
+                                             final Intent resultActivity) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://developers.zomato.com/api/v2.1/search?lat="+lat+"&lon="+lon+"&radius="
+                +radius_meters+"&cuisines="+getCuisineID(cuisines)+"&sort=real_distance&order=asc&count=125";
+        Log.d("THIS IS THE REQUEST", url);
+        JSONObject jsonRequest = new JSONObject();
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        /* Things u wanna do */
+
+                        Log.d("Confirmation", "You have reached up to this point");
+                        try {
+                            JSONArray temp_res = response.getJSONArray("restaurants");
+                            JSONArray filtered = new JSONArray();
+                            double res_cost;
+                            boolean res_deli;
+                            String res_cuisine;
+                            int iterations = temp_res.length();
+
+                            Log.d("selected", temp_res.toString(4));
+                            for(int i = 0; i < iterations; i++ ){
+                                if(iterations == 0) {
+                                    break;
+                                }
+                                res_cost = Double.parseDouble(temp_res.getJSONObject(i).getJSONObject("restaurant").get("average_cost_for_two").toString())/2;
+                                res_deli = Boolean.parseBoolean(temp_res.getJSONObject(i).getJSONObject("restaurant").get("has_online_delivery").toString());
+
+                                Log.d(iterations+" and " + i, temp_res.getJSONObject(i).getJSONObject("restaurant").get("name")+ "" + res_cost + " vs " +budget );
+                                if (res_cost > budget) {
+                                    temp_res.remove(i);
+                                    i = 0;
+                                    Log.d("BUDGET LOST", res_cost + " > " +budget);
+
+                                }
+                                iterations = temp_res.length();
+                            }
+                            iterations = temp_res.length();
+                            JSONArray filtered_restaurants = temp_res;
+                            Log.d("FILTERED BABY", filtered_restaurants.toString(4));
+
+                            Random rand = new Random();
+                            if(filtered_restaurants.length()>0) {
+                                int index = rand.nextInt(filtered_restaurants.length());
+                                int index2 = rand.nextInt(filtered_restaurants.length());
+                                while(index2 == index) {
+                                    index2 =  rand.nextInt(filtered_restaurants.length());
+                                }
+                                int index3 = rand.nextInt(filtered_restaurants.length());
+                                while(index3 == index || index3 == index2) {
+                                    index3 =  rand.nextInt(filtered_restaurants.length());
+                                }
+
+                                JSONObject selected = filtered_restaurants.getJSONObject(index);
+                                JSONObject selected2 = filtered_restaurants.getJSONObject(index2);
+                                JSONObject selected3 = filtered_restaurants.getJSONObject(index3);
+
+                                //result 1
+                                String res_name = selected.getJSONObject("restaurant").getString("name");
+                                JSONObject loc = selected.getJSONObject("restaurant").getJSONObject("location");
+                                String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
+                                String res_cuisines = selected.getJSONObject("restaurant").getString("cuisines");
+                                Double res_budget = Double.parseDouble(selected.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
+
+                                //result 2
+                                String res_name2 = selected2.getJSONObject("restaurant").getString("name");
+                                JSONObject loc2 = selected2.getJSONObject("restaurant").getJSONObject("location");
+                                String res_location2 = loc2.getString("address") + loc.getString("locality") + loc.getString("city");
+                                String res_cuisines2 = selected2.getJSONObject("restaurant").getString("cuisines");
+                                Double res_budget2 = Double.parseDouble(selected2.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
+                                random_restaurant2 = new Restaurant(res_name2, res_location2, res_cuisines, res_budget2);
+
+                                //result 3
+                                String res_name3 = selected3.getJSONObject("restaurant").getString("name");
+                                JSONObject loc3 = selected3.getJSONObject("restaurant").getJSONObject("location");
+                                String res_location3 = loc3.getString("address") + loc.getString("locality") + loc.getString("city");
+                                String res_cuisines3 = selected3.getJSONObject("restaurant").getString("cuisines");
+                                Double res_budget3 = Double.parseDouble(selected3.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
+                                random_restaurant3 = new Restaurant(res_name3, res_location3, res_cuisines, res_budget3);
+
+                                //putToResults1
+                                resultActivity.putExtra("name", res_name);
+                                resultActivity.putExtra("location", res_location);
+                                resultActivity.putExtra("price", res_budget.toString());
+                                resultActivity.putExtra("cuisines", res_cuisines);
+
+                                resultActivity.putExtra("latitude", lat);
+                                resultActivity.putExtra("longitude", lon);
+                                resultActivity.putExtra("cuisineInts", cuisines);
+                                resultActivity.putExtra("budget", budget);
+
+                                //putToResults2
+                                resultActivity.putExtra("name2", res_name2);
+                                resultActivity.putExtra("location2", res_location2);
+                                resultActivity.putExtra("price2", res_budget2.toString());
+                                resultActivity.putExtra("cuisines2", res_cuisines2);
+
+                                resultActivity.putExtra("latitude2", lat);
+                                resultActivity.putExtra("longitude2", lon);
+                                resultActivity.putExtra("cuisineInts2", cuisines);
+                                resultActivity.putExtra("budget2", budget);
+
+                                //putToResults3
+                                resultActivity.putExtra("name3", res_name2);
+                                resultActivity.putExtra("location3", res_location2);
+                                resultActivity.putExtra("price3", res_budget2.toString());
+                                resultActivity.putExtra("cuisines3", res_cuisines2);
+
+                                resultActivity.putExtra("latitude3", lat);
+                                resultActivity.putExtra("longitude3", lon);
+                                resultActivity.putExtra("cuisineInts3", cuisines);
+                                resultActivity.putExtra("budget3", budget);
 
                                 startActivity(resultActivity);
                                 finish();

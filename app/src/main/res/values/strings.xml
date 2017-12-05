@@ -50,4 +50,5 @@
         <item>Street Food</item>
     </string-array>
     <string name="title_activity_new_list">NewListActivity</string>
+    <string name="title_activity_search_three">SearchThreeActivity</string>
 </resources>

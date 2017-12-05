@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgimg"
+    tools:context="edu.ateneo.cie199.bucketdish.SearchResultActivity">
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_cuisines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txv_restaurant"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="14dp"
+        android:layout_toEndOf="@+id/txv_restaurant"
+        android:text="Cuisines"
+        android:textSize="14sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="21dp"
+        android:text="Restawrant"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_price"
+        android:layout_below="@+id/txv_cuisines"
+        android:layout_marginTop="13dp"
+        android:text="address"
+        android:textSize="14sp" />
+
+    <!--android:theme="@style/ratingbar"-->
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txv_cuisines"
+        android:layout_alignBottom="@+id/txv_cuisines"
+        android:layout_alignStart="@+id/txv_restaurant"
+        android:text="Pesos"
+        android:textSize="14sp" />
+
+    <!--android:theme="@style/textview"-->
+
+    <!--android:theme="@style/ListFont"-->
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_restaurant2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_address"
+        android:layout_below="@+id/txv_address"
+        android:layout_marginTop="18dp"
+        android:text="Restawrant"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_cuisines2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txv_price2"
+        android:layout_alignBottom="@+id/txv_price2"
+        android:layout_alignStart="@+id/txv_cuisines"
+        android:text="Cuisines"
+        android:textSize="14sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_price2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_restaurant2"
+        android:layout_below="@+id/txv_restaurant2"
+        android:layout_marginTop="12dp"
+        android:text="Pesos"
+        android:textSize="14sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_address2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_price2"
+        android:layout_below="@+id/txv_cuisines2"
+        android:layout_marginTop="15dp"
+        android:text="address"
+        android:textSize="14sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/btn_research"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_newFilter"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp"
+        android:text="Another"
+        android:textSize="20sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_cuisines3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txv_price3"
+        android:layout_alignBottom="@+id/txv_price3"
+        android:layout_alignStart="@+id/txv_cuisines2"
+        android:layout_marginStart="7dp"
+        android:text="Cuisines"
+        android:textSize="14sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_restaurant3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_address2"
+        android:layout_below="@+id/txv_address2"
+        android:layout_marginTop="14dp"
+        android:text="Restawrant"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_address3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_price3"
+        android:layout_below="@+id/txv_cuisines3"
+        android:layout_marginTop="18dp"
+        android:text="address"
+        android:textSize="14sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_price3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txv_restaurant3"
+        android:layout_below="@+id/txv_restaurant3"
+        android:layout_marginTop="15dp"
+        android:text="Pesos"
+        android:textSize="14sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/btn_newFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="30dp"
+        android:text="New Filters"
+        android:textSize="20sp" />
+
+</RelativeLayout>
