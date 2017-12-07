@@ -122,6 +122,9 @@ public class SearchResultActivity extends AppCompatActivity {
                         Intent directionsActivity = new Intent(SearchResultActivity.this, DirectionActivity.class);
                         directionsActivity.putExtra("userlat",lat);
                         directionsActivity.putExtra("userlong",lon);
+                        directionsActivity.putExtra("restolat",getIntent().getDoubleExtra("restolat",0));
+                        directionsActivity.putExtra("restolong",getIntent().getDoubleExtra("restolon",0));
+                        directionsActivity.putExtra("restoname", getIntent().getStringExtra("name"));
                         startActivity(directionsActivity);
                     }
                 }

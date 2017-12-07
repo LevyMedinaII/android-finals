@@ -353,8 +353,11 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
                                 String res_cuisines = selected.getJSONObject("restaurant").getString("cuisines");
                                 Double res_budget = Double.parseDouble(selected.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
-
-                                //putToResults1
+                                Double res_lat = Double.parseDouble(loc.getString("latitude"));
+                                Double res_lon = Double.parseDouble(loc.getString("longitude"));
+                                //putToResults
+                                resultActivity.putExtra("restolat",res_lat);
+                                resultActivity.putExtra("restolong",res_lon);
                                 resultActivity.putExtra("name", res_name);
                                 resultActivity.putExtra("location", res_location);
                                 resultActivity.putExtra("price", res_budget.toString());

@@ -17,6 +17,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,16 +37,13 @@ import java.util.List;
 public class DirectionActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
 
     private GoogleMap mMap;
-    private Double destinationLat;
-    private Double destinationLong;
+    private String restoName;
     private FusedLocationProviderClient mfusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent getRestoLocation = getIntent();
-        destinationLat = Double.parseDouble(getRestoLocation.getStringExtra("latitude"));
-        destinationLong = Double.parseDouble(getRestoLocation.getStringExtra("longitude"));
         setContentView(R.layout.activity_direction);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -83,33 +81,31 @@ public class DirectionActivity extends FragmentActivity implements OnMapReadyCal
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
-        mMap.setOnMapClickListener(
-                new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        mMap.clear();
-                        mMap.addMarker(new MarkerOptions().position(latLng));
-                        destinationLat = latLng.latitude;
-                        destinationLong = latLng.longitude;
-
-                    }
-                }
-
-
-        );
+        mMap.addMarker(new MarkerOptions().position(getRestoLocation()).title(restoName));
     }
 
     private LatLng getUserLocation(){
 
         Intent getUserLatLng = getIntent();
-        Double userLat = Double.parseDouble(getUserLatLng.getStringExtra("userlat"));
-        Double userLong = Double.parseDouble(getUserLatLng.getStringExtra("userlong"));
+        Double userLat = getUserLatLng.getDoubleExtra("userlat",0);
+        Double userLong = getUserLatLng.getDoubleExtra("userlong",0);
         LatLng userLatLng = new LatLng(userLat,userLong);
 
         return userLatLng;
 
     }
 
+    private LatLng getRestoLocation(){
+        Intent getRestoLatLng = getIntent();
+        Double restoLat = getRestoLatLng.getDoubleExtra("restolat",0);
+        Double restoLong = getRestoLatLng.getDoubleExtra("restolong",0);
+        restoName = getRestoLatLng.getStringExtra("restoname");
+        LatLng restoLatLng = new LatLng(restoLat,restoLong);
+        
+        return restoLatLng;
+        
+
+    }
     @Override
     public boolean onMyLocationButtonClick() {
         return false;

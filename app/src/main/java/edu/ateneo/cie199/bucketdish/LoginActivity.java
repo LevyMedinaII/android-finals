@@ -340,7 +340,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             findViewById(R.id.btn_start).setVisibility(View.GONE);
             findViewById(R.id.btn_next).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_lists).setVisibility(View.VISIBLE);
-            Intent LoginActivityIntent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent LoginActivityIntent = new Intent(LoginActivity.this, LoadingScreenActivity.class);
             startActivity(LoginActivityIntent);
             finish();
 
