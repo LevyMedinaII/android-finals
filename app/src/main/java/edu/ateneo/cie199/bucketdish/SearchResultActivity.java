@@ -132,7 +132,7 @@ public class SearchResultActivity extends AppCompatActivity {
                         directionsActivity.putExtra("userlat",lat);
                         directionsActivity.putExtra("userlong",lon);
                         directionsActivity.putExtra("restolat",getIntent().getDoubleExtra("restolat",0));
-                        directionsActivity.putExtra("restolong",getIntent().getDoubleExtra("restolon",0));
+                        directionsActivity.putExtra("restolong",getIntent().getDoubleExtra("restolong",0));
                         directionsActivity.putExtra("restoname", getIntent().getStringExtra("name"));
                         startActivity(directionsActivity);
                     }
