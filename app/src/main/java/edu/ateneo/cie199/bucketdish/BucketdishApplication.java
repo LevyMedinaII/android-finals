@@ -87,8 +87,6 @@ public class BucketdishApplication extends Application {
 
     public JSONObject myLists = new JSONObject();
     public ArrayList<User> users = new ArrayList<>();
-
-
     public User currentUser = new User();
 
 

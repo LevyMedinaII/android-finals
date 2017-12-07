@@ -21,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 
 public class SearchResultActivity extends AppCompatActivity {
 
@@ -56,20 +58,16 @@ public class SearchResultActivity extends AppCompatActivity {
         final double lat = receivedQueries.getDoubleExtra("latitude", 0);
         final String cuisineInts = receivedQueries.getStringExtra("cuisineInts");
 
-        JSONArray myBucketList = app.getMyLists().names();
-//        ArrayList<String> restaurantsInList = app.getMyLists().
+
+        ArrayList<Restaurant> myBucketList = app.getBucketList();
         if(myBucketList!=null)
         {
-            int listSize = myBucketList.length();
+            int listSize = myBucketList.size();
             for(int i=0; i<listSize; i++)
             {
-                try {
-                    if(myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name")))
-                    {
-                        chkBucketDish.setChecked(true);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if(myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name")))
+                {
+                    chkBucketDish.setChecked(true);
                 }
             }
         }

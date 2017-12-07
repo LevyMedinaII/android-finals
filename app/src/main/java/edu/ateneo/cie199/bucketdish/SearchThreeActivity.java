@@ -21,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 public class SearchThreeActivity extends AppCompatActivity {
 
     @Override
@@ -75,24 +77,22 @@ public class SearchThreeActivity extends AppCompatActivity {
         CheckBox chkBucketDish2 = (CheckBox)findViewById(R.id.chk_bucketdish2);
         CheckBox chkBucketDish3 = (CheckBox)findViewById(R.id.chk_bucketdish3);
 
-        JSONArray myBucketList = app.getMyLists().names();
-//        ArrayList<String> restaurantsInList = app.getMyLists().
+        ArrayList<Restaurant> myBucketList = app.getBucketList();
         if(myBucketList!=null)
         {
-            int listSize = myBucketList.length();
+            int listSize = myBucketList.size();
             for(int i=0; i<listSize; i++)
             {
-                try {
-                    if(myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name"))) {
-                        chkBucketDish.setChecked(true);
-                    } else if (myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name2"))) {
-                        chkBucketDish2.setChecked(true);
-                    } else if(myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name"))) {
-                        chkBucketDish3.setChecked(true);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if(myBucketList.get(i).getName().matches(receivedQueries.getStringExtra("name"))) {
+                    chkBucketDish.setChecked(true);
                 }
+                if (myBucketList.get(i).getName().matches(receivedQueries.getStringExtra("name2"))) {
+                    chkBucketDish2.setChecked(true);
+                }
+                if(myBucketList.get(i).getName().matches(receivedQueries.getStringExtra("name3"))) {
+                    chkBucketDish3.setChecked(true);
+                }
+
             }
         }
 
