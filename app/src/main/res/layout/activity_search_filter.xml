@@ -96,7 +96,8 @@
         android:layout_below="@id/linearLayout2"
         android:layout_marginBottom="15sp"
         android:layout_marginTop="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout3">
 
         <edu.ateneo.cie199.bucketdish.CustomButton
             android:id="@+id/btn_search"
@@ -116,6 +117,15 @@
         <!--android:layout_weight="1"-->
         <!--android:text="Search" />-->
 
+        <Button
+            android:id="@+id/btn_searchThree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout3"
+            android:layout_weight="1"
+            android:text="Search Three "
+            tools:text="Search Three" />
+
         <edu.ateneo.cie199.bucketdish.CustomButton
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
@@ -124,6 +134,7 @@
             android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:text="Cancel" />
+
         <!--<Button-->
         <!--android:id="@+id/btn_cancel"-->
         <!--android:layout_width="wrap_content"-->

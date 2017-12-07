@@ -75,10 +75,14 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 
         Button searchButton = (Button) findViewById(R.id.btn_search);
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
+        Button searchThreeButton = (Button) findViewById(R.id.btn_searchThree);
 
 
         final Intent resultActivity = new Intent(SearchFilterActivity.this, SearchResultActivity.class);
+        final Intent resultThreeActivity = new Intent(SearchFilterActivity.this, SearchThreeActivity.class);
+
         final Intent receivedQueries = getIntent();
+
         final double budg = receivedQueries.getDoubleExtra("budget",0);
         final double lon = receivedQueries.getDoubleExtra("longitude", 0);
         final double lat = receivedQueries.getDoubleExtra("latitude", 0);
@@ -102,6 +106,23 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                 e.printStackTrace();
             }
         }
+        else if(research.equals(2))
+        {
+            try {
+                setAppRestaurantsWithFilters(
+                        lat,
+                        lon,
+                        budg,
+                        cuisineInts,
+                        false,
+                        500,
+                        false,
+                        resultThreeActivity
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +137,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onClick(View view) {
-                Log.d("THIS IS THE REQUEST", "dsa" );
                 if (ActivityCompat.checkSelfPermission(SearchFilterActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED
                         &&
@@ -135,30 +155,17 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                         .addOnSuccessListener(SearchFilterActivity.this, new OnSuccessListener<Location>() {
                             @Override
                             public void onSuccess(Location location) {
-                                Log.d("THIS IS THE REQUEST", "WOWOWOOW" );
                                 // Got last known location. In some rare situations this can be null.
                                 if (location != null) {
                                     // Logic to handle location object
-                                    // Do something here
-                                    //Spinner priceComp = (Spinner) findViewById(R.id.spn_pricecomp);
+
                                     Spinner cuisine = (Spinner) findViewById(R.id.spn_cuisine);
                                     EditText price = (EditText) findViewById(R.id.edt_price);
-                                    //CheckBox delivers = (CheckBox) findViewById(R.id.chk_delivers);
 
-                                    //final Boolean hasDelivery = delivers.isChecked();
-                                    //String priceCompVal = priceComp.getSelectedItem().toString();
                                     final boolean isGreaterThanComp=false;
-                                    //final Boolean isGreaterThanComp = (priceCompVal == "More Than") ?  true : false;
-//                                    if(priceCompVal"More Than")
-//                                    {
-//                                        isGreaterThanComp=true;
-//                                    }
-
-
 
                                     final String cuisineVal = cuisine.getSelectedItem().toString();
                                     final Double budget = Double.parseDouble(price.getText().toString());
-                                    Log.d("THIS IS THE REQUEST", "AAAA" );
 
                                     try {
                                         setAppRestaurantsWithFilters(
@@ -170,6 +177,51 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                                 500,
                                                 false,
                                                 resultActivity
+                                        );
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                else
+                                {
+                                    Log.d("THIS IS THE REQUEST", "WOW pano yan" );
+                                }
+                            }
+                        });
+            }
+        });
+        searchThreeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ActivityCompat.checkSelfPermission(SearchFilterActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED
+                        &&
+                        ActivityCompat.checkSelfPermission(SearchFilterActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                                != PackageManager.PERMISSION_GRANTED) {
+
+                }
+                mFusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(SearchFilterActivity.this, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                // Got last known location. In some rare situations this can be null.
+                                if (location != null) {
+                                    Spinner cuisine = (Spinner) findViewById(R.id.spn_cuisine);
+                                    EditText price = (EditText) findViewById(R.id.edt_price);
+                                    final boolean isGreaterThanComp=false;
+                                    final String cuisineVal = cuisine.getSelectedItem().toString();
+                                    final Double budget = Double.parseDouble(price.getText().toString());
+
+                                    try {
+                                        getAppThreeRestaurantsWithFilters(
+                                                location.getLatitude(),
+                                                location.getLongitude(),
+                                                budget,
+                                                cuisineVal,
+                                                false,
+                                                500,
+                                                false,
+                                                resultThreeActivity
                                         );
                                     } catch (JSONException e) {
                                         e.printStackTrace();
