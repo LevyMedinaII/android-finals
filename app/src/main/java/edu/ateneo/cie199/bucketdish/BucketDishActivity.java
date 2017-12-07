@@ -23,6 +23,7 @@ public class BucketDishActivity extends AppCompatActivity {
 
         Button btnBack = (Button) findViewById(R.id.btn_back);
         Button btnSearch = (Button) findViewById(R.id.btn_search);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,7 +1,9 @@
 package edu.ateneo.cie199.bucketdish;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -20,5 +22,14 @@ public class ProfileActivity extends AppCompatActivity {
         txvEmail.setText("INSERT TEXT HERE");
         txvContact.setText("INSERT TEXT HERE");
         txvUsername.setText("INSERT TEXT HERE");
+
+        CustomButton btnBack = (CustomButton) findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainActivityIntent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(mainActivityIntent);
+            }
+        });
     }
 }

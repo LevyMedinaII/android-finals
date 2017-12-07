@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity  {
         CustomButton btnLogout = (CustomButton) findViewById(R.id.btn_logout);
         CustomButton btnList = (CustomButton) findViewById(R.id.imgbtn_bucketlist);
         CustomButton btnNew = (CustomButton) findViewById(R.id.imgbtn_newlist);
+        CustomButton btnViewProfile = (CustomButton) findViewById(R.id.imgbtn_viewProfile);
+
         final BucketdishApplication app = (BucketdishApplication) getApplication();
 //        Button btnRand = (Button) findViewById(R.id.imgbtn_randsearch);
 //        Button btnLogout = (Button) findViewById(R.id.btn_logout);
@@ -96,6 +98,14 @@ public class MainActivity extends AppCompatActivity  {
                     }
                 }
         );
+        btnViewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent launchViewProfileActivity = new Intent (MainActivity.this, ProfileActivity.class);
+                finish();
+                startActivity(launchViewProfileActivity);
+            }
+        });
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference listRef = database.getReference("lists/"+currentUser.getUid());
 
