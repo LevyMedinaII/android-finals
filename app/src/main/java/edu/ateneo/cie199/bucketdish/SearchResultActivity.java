@@ -71,8 +71,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 }
             }
         }
-
-
+        
         chkBucketDish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
