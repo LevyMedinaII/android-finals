@@ -117,7 +117,7 @@
         <!--android:layout_weight="1"-->
         <!--android:text="Search" />-->
 
-        <Button
+        <edu.ateneo.cie199.bucketdish.CustomButton
             android:id="@+id/btn_searchThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
