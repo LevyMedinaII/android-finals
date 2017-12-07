@@ -197,23 +197,4 @@ public class SearchResultActivity extends AppCompatActivity {
         });
 
     }
-    // Call Back method  to get the Message form other Activity
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed  here it is 2
-        if(requestCode==2)
-        {
-            TextView name = (TextView) findViewById(R.id.txv_name);
-            TextView price = (TextView) findViewById(R.id.txv_price);
-            TextView address = (TextView) findViewById(R.id.txv_address);
-            TextView cuisines = (TextView) findViewById(R.id.txv_cuisines);
-
-            name.setText(data.getStringExtra("name"));
-            price.setText(data.getStringExtra("price"));
-            address.setText(data.getStringExtra("location"));
-            cuisines.setText(data.getStringExtra("cuisines"));
-        }
-    }
 }

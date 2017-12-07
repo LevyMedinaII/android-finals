@@ -49,29 +49,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_search_filter);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            // Got last known location. In some rare situations this can be null.
-                            if (location != null) {
-                                // Logic to handle location object
-                                // Do something here
-                                userLocation = location;
-
-                            }
-                        }
-                    });
-        }
 
         Button searchButton = (Button) findViewById(R.id.btn_search);
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
@@ -89,10 +66,12 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
         final String cuisineInts = receivedQueries.getStringExtra("cuisineInts");
         final Integer research = receivedQueries.getIntExtra("research", 0);
 
+        // Check if research 1 is asked
         if(research.equals(1))
         {
+            // Search for 1
             try {
-                setAppRestaurantsWithFilters(
+                getRestaurantWithFilters(
                         lat,
                         lon,
                         budg,
@@ -106,10 +85,12 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                 e.printStackTrace();
             }
         }
+        // Check if research for 3
         else if(research.equals(2))
         {
+            //  Search for 3
             try {
-                getAppThreeRestaurantsWithFilters(
+                getThreeRestaurantsWithFilters(
                         lat,
                         lon,
                         budg,
@@ -124,6 +105,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
             }
         }
 
+        // Go back to Main Menu
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,16 +115,24 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
+        // Search 1 Random Restaurants
         searchButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                if (ActivityCompat.checkSelfPermission(SearchFilterActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED
-                        &&
-                        ActivityCompat.checkSelfPermission(SearchFilterActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
+                // Permission Check
+                if (ActivityCompat.checkSelfPermission(
+                        SearchFilterActivity.this,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                            &&
+                    ActivityCompat.checkSelfPermission(
+                        SearchFilterActivity.this,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED) {
+
                 }
+
+                // Get Location
                 mFusedLocationClient.getLastLocation()
                         .addOnSuccessListener(SearchFilterActivity.this, new OnSuccessListener<Location>() {
                             @Override
@@ -160,7 +150,8 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                     final Double budget = Double.parseDouble(price.getText().toString());
 
                                     try {
-                                        setAppRestaurantsWithFilters(
+                                        // Search for 1 Based on Inputs
+                                        getRestaurantWithFilters(
                                                 location.getLatitude(),
                                                 location.getLongitude(),
                                                 budget,
@@ -178,16 +169,24 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                         });
             }
         });
+        // Search for 3
         searchThreeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ActivityCompat.checkSelfPermission(SearchFilterActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED
+                // Permission Check
+                if (ActivityCompat.checkSelfPermission(
+                        SearchFilterActivity.this,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
                         &&
-                        ActivityCompat.checkSelfPermission(SearchFilterActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                                != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.checkSelfPermission(
+                            SearchFilterActivity.this,
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED) {
 
                 }
+
+                //  Get location
                 mFusedLocationClient.getLastLocation()
                         .addOnSuccessListener(SearchFilterActivity.this, new OnSuccessListener<Location>() {
                             @Override
@@ -200,8 +199,10 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                     final String cuisineVal = cuisine.getSelectedItem().toString();
                                     final Double budget = Double.parseDouble(price.getText().toString());
 
+                                    // Get Restaurants based on Locations
+
                                     try {
-                                        getAppThreeRestaurantsWithFilters(
+                                        getThreeRestaurantsWithFilters(
                                                 location.getLatitude(),
                                                 location.getLongitude(),
                                                 budget,
@@ -215,15 +216,13 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                         e.printStackTrace();
                                     }
                                 }
-                                else
-                                {
-                                    Log.d("THIS IS THE REQUEST", "WOW pano yan" );
-                                }
                             }
                         });
             }
         });
     }
+
+    // load and check permissions
     private void loadPermissions(String perm,int requestCode) {
         if (ContextCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, perm)) {
@@ -231,7 +230,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
             }
         }
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -249,69 +247,25 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
         }
 
     }
-
-    public void setRandomRestaurant(double lat, double lon) throws JSONException {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://www.zomato.com/geocode";
-        JSONObject jsonRequest = new JSONObject();
-
-        jsonRequest.put("user-key", zomatoToken);
-        jsonRequest.put("lat", lat);
-        jsonRequest.put("lon", lon);
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        /* Things u wanna do */
-                        try {
-                            Random rand = new Random();
-                            int index = rand.nextInt(response.getJSONArray("nearby_restaurants").length());
-                            JSONObject selected = response.getJSONArray("nearby_restaurants").getJSONObject(index);
-
-                            String res_name = selected.getString("name");
-                            JSONObject loc = selected.getJSONObject("location");
-                            String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
-                            String res_cuisines = selected.getString("cuisines");
-                            Double res_budget = Double.parseDouble(selected.getString("average_cost_for_two"))/2;
-
-                            random_restaurant = new Restaurant(res_name, res_location, res_cuisines, res_budget);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-
-        // Add the request to the RequestQueue.
-        queue.add(jsObjRequest);
-    }
-    public void setAppRestaurantsWithFilters(final double lat, final double lon,
+    
+    // API Call and display result
+    public void getRestaurantWithFilters(final double lat, final double lon,
                                              final double budget, final String cuisines,
                                              final Boolean hasDelivery,
                                              double radius_meters, final Boolean isGreaterThan,
                                              final Intent resultActivity) throws JSONException {
+        //  Create Request with Volley and RequestQueue
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://developers.zomato.com/api/v2.1/search?lat="+lat+"&lon="+lon+"&radius="
                 +radius_meters+"&cuisines="+getCuisineID(cuisines)+"&sort=real_distance&order=asc&count=125";
-        Log.d("THIS IS THE REQUEST", url);
+
         JSONObject jsonRequest = new JSONObject();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        /* Things u wanna do */
-
-                        Log.d("Confirmation", "You have reached up to this point");
+                        // Fix data for display
                         try {
                             JSONArray temp_res = response.getJSONArray("restaurants");
                             JSONArray filtered = new JSONArray();
@@ -347,7 +301,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
 
                                 JSONObject selected = filtered_restaurants.getJSONObject(index);
 
-                                //result 1
+                                // Fixed Result data
                                 String res_name = selected.getJSONObject("restaurant").getString("name");
                                 JSONObject loc = selected.getJSONObject("restaurant").getJSONObject("location");
                                 String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
@@ -355,7 +309,8 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 Double res_budget = Double.parseDouble(selected.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
                                 Double res_lat = Double.parseDouble(loc.getString("latitude"));
                                 Double res_lon = Double.parseDouble(loc.getString("longitude"));
-                                //putToResults
+
+                                // Send to result activity intent
                                 resultActivity.putExtra("restolat",res_lat);
                                 resultActivity.putExtra("restolong",res_lon);
                                 resultActivity.putExtra("name", res_name);
@@ -397,25 +352,24 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
         // Add the request to the RequestQueue.
         queue.add(jsObjRequest);
     }
-    public void getAppThreeRestaurantsWithFilters(final double lat, final double lon,
+    public void getThreeRestaurantsWithFilters(final double lat, final double lon,
                                              final double budget, final String cuisines,
                                              final Boolean hasDelivery,
                                              double radius_meters, final Boolean isGreaterThan,
                                              final Intent resultActivity) throws JSONException {
+        // Create Request with Volley and RequestQueue
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://developers.zomato.com/api/v2.1/search?lat="+lat+"&lon="+lon+"&radius="
                 +radius_meters+"&cuisines="+getCuisineID(cuisines)+"&sort=real_distance&order=asc&count=125";
-        Log.d("THIS IS THE REQUEST", url);
+
         JSONObject jsonRequest = new JSONObject();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        /* Things u wanna do */
-
-                        Log.d("Confirmation", "You have reached up to this point");
                         try {
+                            // Parse result and edit for display
                             JSONArray temp_res = response.getJSONArray("restaurants");
                             JSONArray filtered = new JSONArray();
                             double res_cost;
@@ -423,7 +377,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                             String res_cuisine;
                             int iterations = temp_res.length();
 
-                            Log.d("selected", temp_res.toString(4));
                             for(int i = 0; i < iterations; i++ ){
                                 if(iterations == 0) {
                                     break;
@@ -435,14 +388,12 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 if (res_cost > budget) {
                                     temp_res.remove(i);
                                     i = 0;
-                                    Log.d("BUDGET LOST", res_cost + " > " +budget);
 
                                 }
                                 iterations = temp_res.length();
                             }
                             iterations = temp_res.length();
                             JSONArray filtered_restaurants = temp_res;
-                            Log.d("FILTERED BABY", filtered_restaurants.toString(4));
 
                             Random rand = new Random();
                             if(filtered_restaurants.length()>0) {
@@ -460,7 +411,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 JSONObject selected2 = filtered_restaurants.getJSONObject(index2);
                                 JSONObject selected3 = filtered_restaurants.getJSONObject(index3);
 
-                                //result 1
+                                // edited result 1 for display
                                 String res_name = selected.getJSONObject("restaurant").getString("name");
                                 JSONObject loc = selected.getJSONObject("restaurant").getJSONObject("location");
                                 String res_location = loc.getString("address") + loc.getString("locality") + loc.getString("city");
@@ -469,21 +420,21 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 String res_cuisines = selected.getJSONObject("restaurant").getString("cuisines");
                                 Double res_budget = Double.parseDouble(selected.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
 
-                                //result 2
+                                // edited result 2 for display
                                 String res_name2 = selected2.getJSONObject("restaurant").getString("name");
                                 JSONObject loc2 = selected2.getJSONObject("restaurant").getJSONObject("location");
                                 String res_location2 = loc2.getString("address") + loc.getString("locality") + loc.getString("city");
                                 String res_cuisines2 = selected2.getJSONObject("restaurant").getString("cuisines");
                                 Double res_budget2 = Double.parseDouble(selected2.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
 
-                                //result 3
+                                // edited result 3 for display
                                 String res_name3 = selected3.getJSONObject("restaurant").getString("name");
                                 JSONObject loc3 = selected3.getJSONObject("restaurant").getJSONObject("location");
                                 String res_location3 = loc3.getString("address") + loc.getString("locality") + loc.getString("city");
                                 String res_cuisines3 = selected3.getJSONObject("restaurant").getString("cuisines");
                                 Double res_budget3 = Double.parseDouble(selected3.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
 
-                                //putToResults1
+                                // send first restaurant data to result three activity
                                 resultActivity.putExtra("name", res_name);
                                 resultActivity.putExtra("location", res_location);
                                 resultActivity.putExtra("price", res_budget.toString());
@@ -495,18 +446,17 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 resultActivity.putExtra("cuisineInts", cuisines);
                                 resultActivity.putExtra("budget", budget);
 
-                                //putToResults2
+                                // send second restaurant data to result three activity
                                 resultActivity.putExtra("name2", res_name2);
                                 resultActivity.putExtra("location2", res_location2);
                                 resultActivity.putExtra("price2", res_budget2.toString());
                                 resultActivity.putExtra("cuisines2", res_cuisines2);
-
                                 resultActivity.putExtra("latitude2", lat);
                                 resultActivity.putExtra("longitude2", lon);
                                 resultActivity.putExtra("cuisineInts2", cuisines);
                                 resultActivity.putExtra("budget2", budget);
 
-                                //putToResults3
+                                // send third restaurant data to result three activity
                                 resultActivity.putExtra("name3", res_name3);
                                 resultActivity.putExtra("location3", res_location3);
                                 resultActivity.putExtra("price3", res_budget3.toString());
@@ -546,47 +496,14 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
         // Add the request to the RequestQueue.
         queue.add(jsObjRequest);
     }
-    public void getRestaurantDetails(String res_id) throws JSONException {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://www.zomato.com/search";
-        JSONObject jsonRequest = new JSONObject();
-
-        jsonRequest.put("user-key", zomatoToken);
-        jsonRequest.put("res_id", res_id);
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        /* Things u wanna do */
-                        JSONObject res_details = response;
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-
-        // Add the request to the RequestQueue.
-        queue.add(jsObjRequest);
-    }
     /* API End */
 
     @Override
-
     public void onClick(View view) {
         int i = view.getId();
-//        if (i == R.id.btn_search) {
-//
-//
-//        } else if (i == R.id.btn_cancel) {
-//
-//        }
     }
+
+    // Generate Cuisine Hashmap for generating Zomato Queries
     public String getCuisineID(String cuisine){
         HashMap<String, String> cuisineMap = new HashMap<>();
         cuisineMap.put("Any","");

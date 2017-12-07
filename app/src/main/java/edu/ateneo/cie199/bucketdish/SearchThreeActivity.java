@@ -27,6 +27,7 @@ public class SearchThreeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Firebase Authentication and Connection
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_three);
         final BucketdishApplication app = (BucketdishApplication) getApplication();
@@ -36,8 +37,10 @@ public class SearchThreeActivity extends AppCompatActivity {
         final FirebaseUser user = mAuth.getCurrentUser();
         final DatabaseReference userRef = database.getReference("lists/"+user.getUid());
 
+        // Get Search Queries, Results, and Filters
         final Intent receivedQueries = getIntent();
 
+        // Initialize UI Components
         TextView name = (TextView) findViewById(R.id.txv_name);
         TextView price = (TextView) findViewById(R.id.txv_price);
         TextView address = (TextView) findViewById(R.id.txv_address);
@@ -53,6 +56,7 @@ public class SearchThreeActivity extends AppCompatActivity {
         TextView address3 = (TextView) findViewById(R.id.txv_address3);
         TextView cuisines3 = (TextView) findViewById(R.id.txv_cuisines3);
 
+        // Set UI Texts
         name.setText(receivedQueries.getStringExtra("name"));
         price.setText(receivedQueries.getStringExtra("price"));
         address.setText(receivedQueries.getStringExtra("location"));
@@ -68,15 +72,20 @@ public class SearchThreeActivity extends AppCompatActivity {
         address3.setText(receivedQueries.getStringExtra("location3"));
         cuisines3.setText(receivedQueries.getStringExtra("cuisines3"));
 
+        CheckBox chkBucketDish = (CheckBox)findViewById(R.id.chk_bucketdish);
+        CheckBox chkBucketDish2 = (CheckBox)findViewById(R.id.chk_bucketdish2);
+        CheckBox chkBucketDish3 = (CheckBox)findViewById(R.id.chk_bucketdish3);
+
         final double budg = receivedQueries.getDoubleExtra("budget",0);
         final double lon = receivedQueries.getDoubleExtra("longitude", 0);
         final double lat = receivedQueries.getDoubleExtra("latitude", 0);
         final String cuisineInts = receivedQueries.getStringExtra("cuisineInts");
 
-        CheckBox chkBucketDish = (CheckBox)findViewById(R.id.chk_bucketdish);
-        CheckBox chkBucketDish2 = (CheckBox)findViewById(R.id.chk_bucketdish2);
-        CheckBox chkBucketDish3 = (CheckBox)findViewById(R.id.chk_bucketdish3);
+        Button another = (Button) findViewById(R.id.btn_back);
+        Button newFilter = (Button) findViewById(R.id.btn_newFilter);
 
+        // Check if restaurants are bucketdished.
+        // If bucketdished, set checkbox to check
         ArrayList<Restaurant> myBucketList = app.getBucketList();
         if(myBucketList!=null)
         {
@@ -96,7 +105,7 @@ public class SearchThreeActivity extends AppCompatActivity {
             }
         }
 
-
+        // Attach Listeners to the Checkboxes to save and remove from firebase
         chkBucketDish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -151,13 +160,7 @@ public class SearchThreeActivity extends AppCompatActivity {
             }
         });
 
-
-//        JSONArray myBucketList = app.getMyLists().names();
-//        ArrayList<String> restaurantsInList = app.getMyLists().
-
-        Button another = (Button) findViewById(R.id.btn_back);
-        Button newFilter = (Button) findViewById(R.id.btn_newFilter);
-
+        // Go Back to Search Filter Activity
         newFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,6 +170,7 @@ public class SearchThreeActivity extends AppCompatActivity {
             }
         });
 
+        // Rerun search algorithm in search filter
         another.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,14 +185,6 @@ public class SearchThreeActivity extends AppCompatActivity {
 
             }
         });
-
-//        resultActivity.putExtra("name", res_name);
-//        resultActivity.putExtra("location", res_location);
-//        resultActivity.putExtra("price", res_budget.toString());
-//        resultActivity.putExtra("cuisines", res_cuisines);
-//
-//
-//        startActivity(resultActivity);
     }
 
     private void addItem(final String itemName, final String location, final String price, final String cuisines ){
@@ -250,26 +246,5 @@ public class SearchThreeActivity extends AppCompatActivity {
 
             }
         });
-
     }
-//    // Call Back method  to get the Message form other Activity
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-//    {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        // check if the request code is same as what is passed  here it is 2
-//        if(requestCode==2)
-//        {
-//            TextView name = (TextView) findViewById(R.id.txv_name);
-//            TextView price = (TextView) findViewById(R.id.txv_price);
-//            TextView address = (TextView) findViewById(R.id.txv_address);
-//            TextView cuisines = (TextView) findViewById(R.id.txv_cuisines);
-//
-//            name.setText(data.getStringExtra("name"));
-//            price.setText(data.getStringExtra("price"));
-//            address.setText(data.getStringExtra("location"));
-//            cuisines.setText(data.getStringExtra("cuisines"));
-//            //do the things u wanted
-//        }
-//    }
 }
