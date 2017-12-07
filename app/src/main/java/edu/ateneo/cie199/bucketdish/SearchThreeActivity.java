@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -71,29 +72,29 @@ public class SearchThreeActivity extends AppCompatActivity {
         Button another = (Button) findViewById(R.id.btn_back);
         Button newFilter = (Button) findViewById(R.id.btn_newFilter);
 
-//        newFilter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent searchIntent = new Intent(SearchThreeActivity.this, SearchFilterActivity.class);
-//                startActivity(searchIntent);
-//                finish();
-//            }
-//        });
-//
-//        another.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                final Intent resultActivity = new Intent(SearchThreeActivity.this, SearchFilterActivity.class);
-//                resultActivity.putExtra("latitude", lat);
-//                resultActivity.putExtra("longitude", lon);
-//                resultActivity.putExtra("cuisineInts", cuisineInts);
-//                resultActivity.putExtra("budget", budg);
-//                resultActivity.putExtra("research", 1);
-//                startActivityForResult(resultActivity, 2);
-//                finish();
-//
-//            }
-//        });
+        newFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent searchIntent = new Intent(SearchThreeActivity.this, SearchFilterActivity.class);
+                startActivity(searchIntent);
+                finish();
+            }
+        });
+
+        another.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent resultActivity = new Intent(SearchThreeActivity.this, SearchFilterActivity.class);
+                resultActivity.putExtra("latitude", lat);
+                resultActivity.putExtra("longitude", lon);
+                resultActivity.putExtra("cuisineInts", cuisineInts);
+                resultActivity.putExtra("budget", budg);
+                resultActivity.putExtra("research", 2);
+                startActivityForResult(resultActivity, 2);
+                finish();
+
+            }
+        });
 
 //        resultActivity.putExtra("name", res_name);
 //        resultActivity.putExtra("location", res_location);
