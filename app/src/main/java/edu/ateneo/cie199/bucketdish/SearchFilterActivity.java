@@ -109,7 +109,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
         else if(research.equals(2))
         {
             try {
-                setAppRestaurantsWithFilters(
+                getAppThreeRestaurantsWithFilters(
                         lat,
                         lon,
                         budg,
@@ -142,14 +142,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                         &&
                         ActivityCompat.checkSelfPermission(SearchFilterActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-
                 }
                 mFusedLocationClient.getLastLocation()
                         .addOnSuccessListener(SearchFilterActivity.this, new OnSuccessListener<Location>() {
@@ -181,10 +173,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                }
-                                else
-                                {
-                                    Log.d("THIS IS THE REQUEST", "WOW pano yan" );
                                 }
                             }
                         });
@@ -356,18 +344,8 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                             Random rand = new Random();
                             if(filtered_restaurants.length()>0) {
                                 int index = rand.nextInt(filtered_restaurants.length());
-                                int index2 = rand.nextInt(filtered_restaurants.length());
-                                while(index2 == index) {
-                                    index2 =  rand.nextInt(filtered_restaurants.length());
-                                }
-                                int index3 = rand.nextInt(filtered_restaurants.length());
-                                while(index3 == index || index3 == index2) {
-                                    index3 =  rand.nextInt(filtered_restaurants.length());
-                                }
 
                                 JSONObject selected = filtered_restaurants.getJSONObject(index);
-                                JSONObject selected2 = filtered_restaurants.getJSONObject(index2);
-                                JSONObject selected3 = filtered_restaurants.getJSONObject(index3);
 
                                 //result 1
                                 String res_name = selected.getJSONObject("restaurant").getString("name");
@@ -494,7 +472,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 String res_location2 = loc2.getString("address") + loc.getString("locality") + loc.getString("city");
                                 String res_cuisines2 = selected2.getJSONObject("restaurant").getString("cuisines");
                                 Double res_budget2 = Double.parseDouble(selected2.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
-                                random_restaurant2 = new Restaurant(res_name2, res_location2, res_cuisines, res_budget2);
 
                                 //result 3
                                 String res_name3 = selected3.getJSONObject("restaurant").getString("name");
@@ -502,7 +479,6 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 String res_location3 = loc3.getString("address") + loc.getString("locality") + loc.getString("city");
                                 String res_cuisines3 = selected3.getJSONObject("restaurant").getString("cuisines");
                                 Double res_budget3 = Double.parseDouble(selected3.getJSONObject("restaurant").getString("average_cost_for_two")) / 2;
-                                random_restaurant3 = new Restaurant(res_name3, res_location3, res_cuisines, res_budget3);
 
                                 //putToResults1
                                 resultActivity.putExtra("name", res_name);
@@ -528,10 +504,10 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                 resultActivity.putExtra("budget2", budget);
 
                                 //putToResults3
-                                resultActivity.putExtra("name3", res_name2);
-                                resultActivity.putExtra("location3", res_location2);
-                                resultActivity.putExtra("price3", res_budget2.toString());
-                                resultActivity.putExtra("cuisines3", res_cuisines2);
+                                resultActivity.putExtra("name3", res_name3);
+                                resultActivity.putExtra("location3", res_location3);
+                                resultActivity.putExtra("price3", res_budget3.toString());
+                                resultActivity.putExtra("cuisines3", res_cuisines3);
 
                                 resultActivity.putExtra("latitude3", lat);
                                 resultActivity.putExtra("longitude3", lon);

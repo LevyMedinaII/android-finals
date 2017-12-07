@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +17,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class SearchThreeActivity extends AppCompatActivity {
 
@@ -65,6 +70,87 @@ public class SearchThreeActivity extends AppCompatActivity {
         final double lon = receivedQueries.getDoubleExtra("longitude", 0);
         final double lat = receivedQueries.getDoubleExtra("latitude", 0);
         final String cuisineInts = receivedQueries.getStringExtra("cuisineInts");
+
+        CheckBox chkBucketDish = (CheckBox)findViewById(R.id.chk_bucketdish);
+        CheckBox chkBucketDish2 = (CheckBox)findViewById(R.id.chk_bucketdish2);
+        CheckBox chkBucketDish3 = (CheckBox)findViewById(R.id.chk_bucketdish3);
+
+        JSONArray myBucketList = app.getMyLists().names();
+//        ArrayList<String> restaurantsInList = app.getMyLists().
+        if(myBucketList!=null)
+        {
+            int listSize = myBucketList.length();
+            for(int i=0; i<listSize; i++)
+            {
+                try {
+                    if(myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name"))) {
+                        chkBucketDish.setChecked(true);
+                    } else if (myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name2"))) {
+                        chkBucketDish2.setChecked(true);
+                    } else if(myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name"))) {
+                        chkBucketDish3.setChecked(true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        chkBucketDish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b==Boolean.TRUE)
+                {
+                    addItem(receivedQueries.getStringExtra("name"),
+                            receivedQueries.getStringExtra("location"),
+                            receivedQueries.getStringExtra("price"),
+                            receivedQueries.getStringExtra("cuisines"));
+                }
+                else
+                {
+                    deleteItem(receivedQueries.getStringExtra("name"));
+                }
+
+            }
+        });
+
+        chkBucketDish2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b==Boolean.TRUE)
+                {
+                    addItem(receivedQueries.getStringExtra("name2"),
+                            receivedQueries.getStringExtra("location2"),
+                            receivedQueries.getStringExtra("price2"),
+                            receivedQueries.getStringExtra("cuisines2"));
+                }
+                else
+                {
+                    deleteItem(receivedQueries.getStringExtra("name2"));
+                }
+
+            }
+        });
+
+        chkBucketDish3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b==Boolean.TRUE)
+                {
+                    addItem(receivedQueries.getStringExtra("name3"),
+                            receivedQueries.getStringExtra("location3"),
+                            receivedQueries.getStringExtra("price3"),
+                            receivedQueries.getStringExtra("cuisines3"));
+                }
+                else
+                {
+                    deleteItem(receivedQueries.getStringExtra("name3"));
+                }
+
+            }
+        });
+
 
 //        JSONArray myBucketList = app.getMyLists().names();
 //        ArrayList<String> restaurantsInList = app.getMyLists().
@@ -166,24 +252,24 @@ public class SearchThreeActivity extends AppCompatActivity {
         });
 
     }
-    // Call Back method  to get the Message form other Activity
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed  here it is 2
-        if(requestCode==2)
-        {
-            TextView name = (TextView) findViewById(R.id.txv_name);
-            TextView price = (TextView) findViewById(R.id.txv_price);
-            TextView address = (TextView) findViewById(R.id.txv_address);
-            TextView cuisines = (TextView) findViewById(R.id.txv_cuisines);
-
-            name.setText(data.getStringExtra("name"));
-            price.setText(data.getStringExtra("price"));
-            address.setText(data.getStringExtra("location"));
-            cuisines.setText(data.getStringExtra("cuisines"));
-            //do the things u wanted
-        }
-    }
+//    // Call Back method  to get the Message form other Activity
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+//    {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        // check if the request code is same as what is passed  here it is 2
+//        if(requestCode==2)
+//        {
+//            TextView name = (TextView) findViewById(R.id.txv_name);
+//            TextView price = (TextView) findViewById(R.id.txv_price);
+//            TextView address = (TextView) findViewById(R.id.txv_address);
+//            TextView cuisines = (TextView) findViewById(R.id.txv_cuisines);
+//
+//            name.setText(data.getStringExtra("name"));
+//            price.setText(data.getStringExtra("price"));
+//            address.setText(data.getStringExtra("location"));
+//            cuisines.setText(data.getStringExtra("cuisines"));
+//            //do the things u wanted
+//        }
+//    }
 }
