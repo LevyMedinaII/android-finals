@@ -32,21 +32,25 @@ public class SearchResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
         final BucketdishApplication app = (BucketdishApplication) getApplication();
+
+        // Firebase authentication and connection
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
         final DatabaseReference userRef = database.getReference("lists/"+user.getUid());
 
+        // Initialize UI Components
         CheckBox chkBucketDish = (CheckBox)findViewById(R.id.chk_bucketdish);
-
-
-        final Intent receivedQueries = getIntent();
         TextView name = (TextView) findViewById(R.id.txv_name);
         TextView price = (TextView) findViewById(R.id.txv_price);
         TextView address = (TextView) findViewById(R.id.txv_address);
         TextView cuisines = (TextView) findViewById(R.id.txv_cuisines);
+
+        // Get Search Queries, Results and Filters
+        final Intent receivedQueries = getIntent();
 
         name.setText(receivedQueries.getStringExtra("name"));
         price.setText(receivedQueries.getStringExtra("price"));
@@ -58,7 +62,7 @@ public class SearchResultActivity extends AppCompatActivity {
         final double lat = receivedQueries.getDoubleExtra("latitude", 0);
         final String cuisineInts = receivedQueries.getStringExtra("cuisineInts");
 
-
+        // Set Restaurant to "Bucketdish"-ed in UI if already in Firebase
         ArrayList<Restaurant> myBucketList = app.getBucketList();
         if(myBucketList!=null)
         {
@@ -71,7 +75,8 @@ public class SearchResultActivity extends AppCompatActivity {
                 }
             }
         }
-        
+
+        // Attach listener; onChange add item to firebase or remove item from firebase
         chkBucketDish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -87,13 +92,16 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         });
 
+        // Initialize Button UI Components
         Button another = (Button) findViewById(R.id.btn_back);
         Button newFilter = (Button) findViewById(R.id.btn_newFilter);
         final Button directions = (Button) findViewById(R.id.btn_directions);
 
+        // Add Button Listeners
         newFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //  Go back to Search Filter Activity
                 Intent searchIntent = new Intent(SearchResultActivity.this, SearchFilterActivity.class);
                 startActivity(searchIntent);
                 finish();
@@ -103,6 +111,7 @@ public class SearchResultActivity extends AppCompatActivity {
         another.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Restart Search Algorithm
                 final Intent resultActivity = new Intent(SearchResultActivity.this, SearchFilterActivity.class);
                 resultActivity.putExtra("latitude", lat);
                 resultActivity.putExtra("longitude", lon);
@@ -144,23 +153,16 @@ public class SearchResultActivity extends AppCompatActivity {
         final BucketdishApplication app = (BucketdishApplication) getApplication();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final Restaurant newRest = new Restaurant(itemName,location,cuisines,Double.parseDouble(price));
-        //BucketList newList = new BucketList(mAuth.getUid(), mAuth.getCurrentUser().)
         FirebaseUser user = mAuth.getCurrentUser();
         final String userId= user.getUid();
-        //final Restaurant current = app.getCheckoutRestaurant();
-        //final String itemName = current.getName();
-        //String cred =
+
         rootRef.child("lists").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Log.d("OH NO","MERON NA BOY");
                 long number = snapshot.getChildrenCount();
                 Log.d("This is the Nth list", ""+number);
-//                    String key =rootRef.child("lists").child(app.getCurrentUser().getUsername()).push().getKey();
-//                    Log.d("This is User Key", key);
                 rootRef.child("lists").child(userId).child(itemName).setValue(newRest);
-                //rootRef.child("users").child(userId).child("finishedList").push().setValue(itemName);
-                //doneRestaurant(itemName, key);
             }
 
             @Override
@@ -176,23 +178,16 @@ public class SearchResultActivity extends AppCompatActivity {
         final BucketdishApplication app = (BucketdishApplication) getApplication();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        //BucketList newList = new BucketList(mAuth.getUid(), mAuth.getCurrentUser().)
         FirebaseUser user = mAuth.getCurrentUser();
         final String userId= user.getUid();
-        //final Restaurant current = app.getCheckoutRestaurant();
-        //final String itemName = current.getName();
-        //String cred =
+
         rootRef.child("lists").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Log.d("OH NO","MERON NA BOY");
                 long number = snapshot.getChildrenCount();
                 Log.d("This is the Nth list", ""+number);
-//                    String key =rootRef.child("lists").child(app.getCurrentUser().getUsername()).push().getKey();
-//                    Log.d("This is User Key", key);
                 rootRef.child("lists").child(userId).child(itemName).removeValue();
-                //rootRef.child("users").child(userId).child("finishedList").push().setValue(itemName);
-                //doneRestaurant(itemName, key);
             }
 
             @Override
@@ -219,7 +214,6 @@ public class SearchResultActivity extends AppCompatActivity {
             price.setText(data.getStringExtra("price"));
             address.setText(data.getStringExtra("location"));
             cuisines.setText(data.getStringExtra("cuisines"));
-            //do the things u wanted
         }
     }
 }
