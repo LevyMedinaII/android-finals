@@ -59,6 +59,8 @@
             android:name=".DirectionActivity"
             android:label="@string/title_activity_direction" />
         <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".LoadingScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
