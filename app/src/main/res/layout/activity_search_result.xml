@@ -60,8 +60,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_back"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp"
+        android:layout_alignStart="@+id/txv_address"
+        android:layout_marginBottom="18dp"
         android:buttonTint="@android:color/white"
         android:text="Bucket Dished"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -92,9 +92,8 @@
         android:id="@+id/btn_directions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/chk_bucketdish"
         android:layout_alignEnd="@+id/txv_address"
-        android:layout_alignTop="@+id/txv_name"
-        android:layout_marginEnd="47dp"
         android:text="Map?" />
 
 </RelativeLayout>

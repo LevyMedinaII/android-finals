@@ -1,5 +1,6 @@
 package edu.ateneo.cie199.bucketdish;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -46,6 +47,7 @@ public class NewListActivity extends AppCompatActivity implements View.OnClickLi
         listExists = false;
         add = (Button) findViewById(R.id.btn_addnewlist);
         findViewById(R.id.btn_addnewlist).setOnClickListener(this);
+        findViewById(R.id.btn_edit_list).setOnClickListener(this);
         final BucketdishApplication app = (BucketdishApplication) getApplication();
         String createdBy = app.getCurrentUser().getUsername();
         final List<String> listNames = new ArrayList<String>();
@@ -237,6 +239,12 @@ public class NewListActivity extends AppCompatActivity implements View.OnClickLi
         else if(i==R.id.btn_link)
         {
             linkList(selectedList, selectedRestaurant);
+        }
+        else if(i==R.id.btn_edit_list)
+        {
+            Intent editListActivity = new Intent(NewListActivity.this, EditListActivity.class);
+            editListActivity.putExtra("listname",selectedList);
+            startActivity(editListActivity);
         }
     }
     private void listExists(){

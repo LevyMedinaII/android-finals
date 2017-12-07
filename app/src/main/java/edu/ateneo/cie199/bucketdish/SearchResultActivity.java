@@ -69,7 +69,7 @@ public class SearchResultActivity extends AppCompatActivity {
             int listSize = myBucketList.size();
             for(int i=0; i<listSize; i++)
             {
-                if(myBucketList.get(i).toString().matches(receivedQueries.getStringExtra("name")))
+                if(myBucketList.get(i).getName().matches(receivedQueries.getStringExtra("name")))
                 {
                     chkBucketDish.setChecked(true);
                 }

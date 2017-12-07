@@ -136,5 +136,12 @@ public class BucketdishApplication extends Application {
         this.lists = lists;
     }
 
+    public Restaurant searchBucketListbyName(List<Restaurant> list, String Name){
+        for(Restaurant resto : list){
+            if(resto.getName().matches(Name)) return resto;
+        }
+        return null;
+    }
+
 
 }

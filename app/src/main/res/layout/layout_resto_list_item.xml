@@ -15,7 +15,7 @@
         android:textSize="18sp" />
 
     <CheckBox
-        android:id="@+id/chk_bucket"
+        android:id="@+id/chk_addtolist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -23,6 +23,6 @@
         android:layout_marginEnd="65dp"
         android:buttonTint="@color/cast_libraries_material_featurehighlight_text_body_color"
         android:checked="false"
-        android:text="BucketDished"
+        android:text="Add to List"
         android:textColor="@color/cast_libraries_material_featurehighlight_text_body_color" />
 </RelativeLayout>

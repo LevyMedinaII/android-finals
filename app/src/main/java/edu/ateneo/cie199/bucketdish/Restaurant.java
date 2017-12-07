@@ -48,4 +48,11 @@ public class Restaurant {
     public void setBudget(Double budget) {
         this.budget = budget;
     }
+
+
+
+
+    public String toString() {
+        return getName();
+    }
 }

@@ -65,9 +65,18 @@
         android:id="@+id/btn_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btn_addnewlist"
+        android:layout_alignStart="@+id/btn_addnewlist"
         android:layout_below="@+id/spn_restaurant"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="17dp"
         android:text="Link" />
+
+    <Button
+        android:id="@+id/btn_edit_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_link"
+        android:layout_below="@+id/btn_link"
+        android:layout_marginTop="11dp"
+        android:text="Edit List" />
 
 </RelativeLayout>
