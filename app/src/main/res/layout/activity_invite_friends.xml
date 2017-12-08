@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgimg"
+    tools:context="edu.ateneo.cie199.bucketdish.InviteFriendAcitvity">
+
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/lbl_invite_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:textSize="24sp"
+        android:text="Invite Friends" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/lbl_resto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/lbl_invite_friends"
+        android:layout_below="@+id/lbl_invite_friends"
+        android:layout_marginTop="15dp"
+        android:text="Choose ONE restaurant:"
+        android:textSize="20sp" />
+
+    <ListView
+        android:id="@+id/lsv_invite_resto"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignLeft="@+id/lbl_invite_friends"
+        android:layout_below="@+id/lbl_resto"
+        android:layout_marginTop="15dp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/lbl_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lbl_invite_friends"
+        android:layout_below="@+id/lsv_invite_resto"
+        android:layout_marginTop="15dp"
+        android:text="Choose Friends to invite:"
+        android:textSize="20sp" />
+
+    <ListView
+        android:id="@+id/lsv_invite_friends"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignLeft="@+id/lbl_friend"
+        android:layout_below="@+id/lbl_friend"
+        android:layout_marginTop="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/lsv_invite_friends"
+        android:layout_below="@+id/lsv_invite_friends"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+
+        <edu.ateneo.cie199.bucketdish.CustomButton
+            android:id="@+id/btn_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="15dp"
+            android:textSize="24dp"
+            android:text="Invite" />
+
+        <edu.ateneo.cie199.bucketdish.CustomButton
+            android:id="@+id/btn_canceli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="24dp"
+            android:text="Cancel" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -73,7 +73,8 @@
             android:name=".LoadingScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EditListActivity" />
-        <activity android:name=".FavoriteListsActivity"></activity>
+        <activity android:name=".FavoriteListsActivity" />
+        <activity android:name=".RecommendActivity"></activity>
     </application>
 
 </manifest>
