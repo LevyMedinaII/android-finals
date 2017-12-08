@@ -1,5 +1,6 @@
 package edu.ateneo.cie199.bucketdish;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -12,7 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,6 +38,7 @@ import java.util.Random;
 
 public class SearchFilterActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private Context context;
     private String zomatoToken = "81c4d728678c315f02168a91d762f025";
     private Restaurant random_restaurant, random_restaurant2, random_restaurant3;
     private String[] permissions = {"ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"};
@@ -46,6 +50,7 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_search_filter);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -165,6 +170,9 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                         e.printStackTrace();
                                     }
                                 }
+                                else{
+                                    Toast.makeText(context, "Please turn on your location services", Toast.LENGTH_LONG).show();
+                                }
                             }
                         });
             }
@@ -215,6 +223,9 @@ public class SearchFilterActivity extends AppCompatActivity implements View.OnCl
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                }
+                                else{
+                                    Toast.makeText(context, "Please turn on your location services", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
