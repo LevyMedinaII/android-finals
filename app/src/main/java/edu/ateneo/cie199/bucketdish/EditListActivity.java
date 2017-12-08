@@ -1,6 +1,7 @@
 package edu.ateneo.cie199.bucketdish;
 
 import android.app.usage.NetworkStats;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,14 @@ import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +34,15 @@ public class EditListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_list);
         final BucketdishApplication app = (BucketdishApplication) getApplication();
-
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        Boolean listExists = false;
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        final String userId= user.getUid();
+        String createdBy = app.getCurrentUser().getUsername();
+        final Intent receivedQueries = getIntent();
+        final String listName = receivedQueries.getStringExtra("listname");
+        Log.e("Hey Man Heres ur name",""+listName);
 
         bucketDish = app.getBucketList();
 
@@ -42,6 +59,7 @@ public class EditListActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        selected.clear();
                         Log.e("HISADI0","ASDASLD");
                         for(int i=0; i<lsvList.getCount(); i++){
                             CheckedTextView item = (CheckedTextView) lsvList.getChildAt(i);
@@ -52,9 +70,32 @@ public class EditListActivity extends AppCompatActivity {
                                 selected.add(resto);
                             }
                         }
+                        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                    rootRef.child("RecommendationLists").child(listName).child("Restaurants").setValue(null);
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        for(Restaurant resto : selected){
+                            }
+                        });
+                        int iterate = 0;
+                        for(final Restaurant resto : selected){
                             Log.e("S",resto.getName());
+                            iterate++;
+                            final int iterateHolder = iterate;
+                            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                        rootRef.child("RecommendationLists").child(listName).child("Restaurants").child(String.valueOf(iterateHolder)).setValue(resto);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                         }
                     }
                 }

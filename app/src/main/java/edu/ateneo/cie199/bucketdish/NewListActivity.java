@@ -87,8 +87,7 @@ public class NewListActivity extends AppCompatActivity implements View.OnClickLi
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                String selectedList = parent.getItemAtPosition(position).toString(); //this is your selected item
-        /* And set the ImageView's resource to it */
+                setList(parent.getItemAtPosition(position).toString());
             }
             public void onNothingSelected(AdapterView<?> parent)
             {
@@ -126,17 +125,17 @@ public class NewListActivity extends AppCompatActivity implements View.OnClickLi
         rootRef.child("users").child(uniqueId).push().setValue(id);
     }
 
+    private void setList(String listName)
+    {
+        selectedList = listName;
+    }
+
     private void linkList( final String listName, final String itemName){
         final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
-
                     rootRef.child("RecommendationLists").child(listName).child("Restaurants").setValue(itemName);
-
-//                    rootRef.child("users").child(userId).child("finishedList").push().setValue(itemName);
-                    //doneRestaurant(itemName, key);
 
             }
 
@@ -243,6 +242,7 @@ public class NewListActivity extends AppCompatActivity implements View.OnClickLi
         else if(i==R.id.btn_edit_list)
         {
             Intent editListActivity = new Intent(NewListActivity.this, EditListActivity.class);
+            Log.e("passing","ASDASLD "+selectedList);
             editListActivity.putExtra("listname",selectedList);
             startActivity(editListActivity);
         }
