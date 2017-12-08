@@ -146,7 +146,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 Object listValue = dataSnapshot.getValue();
-
                 Log.d(TAG, "Value is: " + listValue);
                 app.setLists(listValue);
             }
@@ -213,12 +212,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference("/users");
         ArrayList newList = new ArrayList();
-        User newUser = new User(email,username ,firstname, lastname, newList);
+        String contactNumber = "";
+        User newUser = new User(email,username ,firstname, lastname, contactNumber);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String userId = user.getUid();
-
-
         mDatabase.child(userId).setValue(newUser);
     }
     private void signIn(String email, String password) {

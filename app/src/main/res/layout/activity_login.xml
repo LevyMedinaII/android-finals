@@ -35,8 +35,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dp"
         android:ems="10"
+        android:hint="Email Address"
         android:inputType="textPersonName"
-        android:text="Email"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="85dp" />
 
@@ -48,9 +48,9 @@
         android:layout_below="@+id/txv_details"
         android:layout_marginTop="34dp"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPersonName"
         android:password="true"
-        android:text="Password"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="164dp" />
 
@@ -97,8 +97,8 @@
         android:layout_below="@+id/edt_password"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="First Name" />
+        android:hint="First Name"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/edt_lastname"
@@ -108,8 +108,8 @@
         android:layout_below="@+id/edt_firstname"
         android:layout_marginTop="18dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Last Name" />
+        android:hint="Last Name"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/edt_username"
@@ -119,8 +119,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Username" />
+        android:hint="Username"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btn_start"

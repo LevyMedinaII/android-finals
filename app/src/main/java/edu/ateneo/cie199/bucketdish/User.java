@@ -15,28 +15,28 @@ public class User {
     public String username;
     public String firstname;
     public String lastname;
-    public ArrayList<String> finishedList = new ArrayList(0);
+    public String contactnumber;
 
+    public User(String email, String username, String firstname, String lastname, String contactnumber) {
+        this.email = email;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.contactnumber = contactnumber;
+    }
 
 
     public User() {
 
     }
 
-    public User(String email, String username, String firstname, String lastname, ArrayList finishedList) {
-        this.email = email;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.finishedList = finishedList;
+
+    public String getContactnumber() {
+        return contactnumber;
     }
 
-    public ArrayList getFinishedList() {
-        return finishedList;
-    }
-
-    public void setFinishedList(ArrayList finishedList) {
-        this.finishedList = finishedList;
+    public void setContactnumber(String contactnumber) {
+        this.contactnumber = contactnumber;
     }
 
     public String getUsername() {
@@ -71,11 +71,4 @@ public class User {
         this.lastname = lastname;
     }
 
-    public void addRestaurant(String id){
-        finishedList.add(id);
-    }
-
-    public String toString(){
-        return getUsername();
-    }
 }

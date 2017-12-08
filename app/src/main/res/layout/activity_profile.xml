@@ -71,7 +71,24 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="30sp" />
-
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/btn_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txv_contact"
+        android:text="Add your contact number"
+        android:textSize="20sp" />
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/btn_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txv_contact"
+        android:text="Add"
+        android:textSize="20sp" />
     <edu.ateneo.cie199.bucketdish.CustomButton
         android:id="@+id/btn_back"
         android:layout_width="match_parent"
@@ -81,5 +98,17 @@
         android:layout_marginBottom="47dp"
         android:text="Back"
         android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/edt_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/txv_contact"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 
 </RelativeLayout>
