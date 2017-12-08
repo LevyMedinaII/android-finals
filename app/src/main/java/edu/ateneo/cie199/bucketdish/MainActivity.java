@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity  {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent launchBucketDishActivity = new Intent(MainActivity.this, NewListActivity.class);
+                        Intent launchBucketDishActivity = new Intent(MainActivity.this, FavoriteListsActivity.class);
                         finish();
                         startActivity(launchBucketDishActivity);
 

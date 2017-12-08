@@ -14,19 +14,19 @@ import java.util.List;
 
 public class FavoriteListsActivity extends AppCompatActivity {
 
-    ArrayList<List<Restaurant>> favoriteLists = new ArrayList<List<Restaurant>>();
-    ArrayAdapter<List<Restaurant>> mAdapter = null;
+    List<String> favoriteLists = new ArrayList<>();
+    ArrayAdapter<String> mAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_lists);
-
-        mAdapter = new ArrayAdapter<List<Restaurant>>(this,android.R.layout.simple_list_item_1, favoriteLists);
+        final BucketdishApplication app = (BucketdishApplication) getApplication();
+        favoriteLists= app.getRecommendList();
+        mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, favoriteLists);
         final ListView lsvFavoriteList = (ListView) findViewById(R.id.lsv_favorite_list);
         lsvFavoriteList.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
-
 
         lsvFavoriteList.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
