@@ -33,9 +33,10 @@
         android:id="@+id/lsv_invite_resto"
         android:layout_marginRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:layout_alignLeft="@+id/lbl_invite_friends"
         android:layout_below="@+id/lbl_resto"
+        android:textColor="0xffffff"
         android:layout_marginTop="15dp" />
 
     <edu.ateneo.cie199.bucketdish.CustomTextView
@@ -52,20 +53,24 @@
         android:id="@+id/lsv_invite_friends"
         android:layout_marginRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:layout_alignLeft="@+id/lbl_friend"
         android:layout_below="@+id/lbl_friend"
+        android:textColor="0xffffff"
         android:layout_marginTop="15dp" />
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/lsv_invite_friends"
-        android:layout_below="@+id/lsv_invite_friends"
+        android:layout_below="@+id/edt_message"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout4">
 
 
         <edu.ateneo.cie199.bucketdish.CustomButton
@@ -74,7 +79,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="15dp"
-            android:textSize="24dp"
             android:text="Invite" />
 
         <edu.ateneo.cie199.bucketdish.CustomButton
@@ -82,10 +86,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="24dp"
             android:text="Cancel" />
 
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/edt_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lbl_friend"
+        android:layout_below="@+id/lsv_invite_friends"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Message"
+        android:inputType="text"
+        android:textColor="0xffffff" />
 
 
 </RelativeLayout>

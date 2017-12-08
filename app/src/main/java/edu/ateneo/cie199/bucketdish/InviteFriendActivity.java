@@ -7,18 +7,20 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class InviteFriendAcitvity extends AppCompatActivity {
+class InviteFriendActivity extends AppCompatActivity {
     ArrayList<Restaurant> inviteRestaurantList = new ArrayList<Restaurant>();
     ArrayList<User> inviteFriendsList = new ArrayList<User>();
     ArrayAdapter mRestaurantAdapter = null;
     ArrayAdapter mFriendsAdapter = null;
     Restaurant inviteRestaurant;
     ArrayList<User> invitedFriends = new ArrayList<User>();
+    String message = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ class InviteFriendAcitvity extends AppCompatActivity {
         lsvInviteRestaurant.setChoiceMode(lsvInviteRestaurant.CHOICE_MODE_SINGLE);
         lsvInviteFriend.setChoiceMode(lsvInviteFriend.CHOICE_MODE_MULTIPLE);
 
+        final EditText edtMessage = (EditText) findViewById(R.id.edt_message);
         Button btnInvite = (Button) findViewById(R.id.btn_invite);
 
         btnInvite.setOnClickListener(
@@ -72,6 +75,8 @@ class InviteFriendAcitvity extends AppCompatActivity {
                         for(User friend : invitedFriends){
                             Log.e("Friend", friend.getUsername());
                         }
+
+                        message = edtMessage.getText().toString();
                     }
                 }
         );

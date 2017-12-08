@@ -74,4 +74,8 @@ public class User {
     public void addRestaurant(String id){
         finishedList.add(id);
     }
+
+    public String toString(){
+        return getUsername();
+    }
 }
