@@ -68,6 +68,10 @@ class InviteFriendAcitvity extends AppCompatActivity {
                                 invitedFriends.add(friend);
                             }
                         }
+
+                        for(User friend : invitedFriends){
+                            Log.e("Friend", friend.getUsername());
+                        }
                     }
                 }
         );
