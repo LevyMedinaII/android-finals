@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgimg"
+    tools:context="edu.ateneo.cie199.bucketdish.ViewMessageActivity">
+
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/lbl_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:textSize="32sp"
+        android:text="Invite" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lbl_message"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/lbl_message"
+        android:textSize="28sp"
+        android:text="Put Message Here" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_sender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txv_message"
+        android:layout_alignLeft="@+id/lbl_message"
+        android:layout_marginTop="40dp"
+        android:textSize="28sp"
+        android:text="Invite" />
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/txv_resto_invite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txv_sender"
+        android:layout_alignLeft="@+id/txv_sender"
+        android:layout_marginTop="40dp"
+        android:textSize="28sp"
+        android:text="Invite" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@+id/txv_sender"
+        android:layout_below="@+id/txv_resto_invite"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+
+        <edu.ateneo.cie199.bucketdish.CustomButton
+            android:id="@+id/btn_accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="15dp"
+            android:text="Accept" />
+
+        <edu.ateneo.cie199.bucketdish.CustomButton
+            android:id="@+id/btn_deny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Deny" />
+    </LinearLayout>
+
+
+</RelativeLayout>

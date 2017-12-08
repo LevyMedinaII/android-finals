@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgimg"
+    tools:context="edu.ateneo.cie199.bucketdish.MessagesActivity">
+
+    <edu.ateneo.cie199.bucketdish.CustomTextView
+        android:id="@+id/lbl_invites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:textSize="24sp"
+        android:text="Invites" />
+
+    <ListView
+        android:id="@+id/lsv_invites"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignStart="@+id/lbl_invites"
+        android:layout_below="@+id/lbl_invites"
+        android:layout_marginTop="15dp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/btn_back_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/lsv_invites"
+        android:layout_below="@+id/lsv_invites"
+        android:layout_marginTop="22dp"
+        android:text="Back" />
+
+
+</RelativeLayout>

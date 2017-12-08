@@ -25,7 +25,7 @@
         android:layout_alignStart="@+id/imgbtn_randsearch"
         android:layout_below="@+id/imgbtn_randsearch"
         android:layout_marginTop="36dp"
-        android:text="Check out your BucketList"
+        android:text="Check BucketDish"
         android:textSize="28sp" />
 
     <edu.ateneo.cie199.bucketdish.CustomButton
@@ -49,14 +49,25 @@
         android:text="View Profile"
         android:textSize="28sp" />
 
+
     <edu.ateneo.cie199.bucketdish.CustomButton
-    android:id="@+id/btn_logout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignEnd="@+id/imgbtn_bucketlist"
-    android:layout_alignParentBottom="true"
-    android:layout_marginBottom="37dp"
-    android:text="Logout" />
+        android:id="@+id/btn_view_notifications"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imgbtn_newlist"
+        android:layout_below="@+id/imgbtn_viewProfile"
+        android:layout_marginTop="39dp"
+        android:text="View Notifications"
+        android:textSize="28sp" />
+
+    <edu.ateneo.cie199.bucketdish.CustomButton
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/btn_view_notifications"
+        android:layout_below="@+id/btn_view_notifications"
+        android:layout_marginTop="12dp"
+        android:text="Logout" />
 
 <!--<Button-->
         <!--android:id="@+id/imgbtn_randsearch"-->
