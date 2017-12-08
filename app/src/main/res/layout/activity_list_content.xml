@@ -11,11 +11,23 @@
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Back" />
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="12dp"
+        android:text="Back"
+        tools:text="Back" />
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txv_title"
+        android:layout_alignBottom="@+id/txv_title"
+        android:layout_marginStart="74dp"
+        android:layout_toEndOf="@+id/txv_title"
+        android:text="Edit"
+        tools:text="Edit" />
 
     <ListView
         android:id="@+id/lsv_content"
@@ -26,12 +38,17 @@
         android:background="@color/cast_expanded_controller_progress_text_color"
         tools:background="@color/cast_expanded_controller_progress_text_color" />
 
-    <Button
-        android:id="@+id/btn_search"
+    <TextView
+        android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/lsv_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:text="Search for Restaurants" />
+        android:layout_alignBaseline="@+id/btn_back"
+        android:layout_alignBottom="@+id/btn_back"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="19dp"
+        android:text="List Name"
+        android:textColor="@color/cast_expanded_controller_text_color"
+        android:textSize="20sp"
+        tools:text="List Name" />
+
 </RelativeLayout>

@@ -8,10 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 public class BucketDishActivity extends AppCompatActivity {
 
     @Override
@@ -42,7 +38,7 @@ public class BucketDishActivity extends AppCompatActivity {
         });
         ArrayAdapter<Restaurant> mAdapter = new BucketDishAdapter(this, app.getBucketList());
 
-        ListView bucketListView = (ListView) findViewById(R.id.lsv_bucketdish);
+        ListView bucketListView = (ListView) findViewById(R.id.lsv_content);
         bucketListView.setAdapter(mAdapter);
 
         /* And then notify the adapter that the dataset has changed for good measure */

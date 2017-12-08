@@ -76,7 +76,8 @@
         <activity android:name=".FavoriteListsActivity" />
         <activity android:name=".RecommendActivity" />
         <activity android:name=".MessagesActivity" />
-        <activity android:name=".ViewMessageActivity"></activity>
+        <activity android:name=".ViewMessageActivity" />
+        <activity android:name=".ListContentActivity"></activity>
     </application>
 
 </manifest>
