@@ -41,9 +41,9 @@ public class EditListActivity extends AppCompatActivity {
         final String userId= user.getUid();
         String createdBy = app.getCurrentUser().getUsername();
         final Intent receivedQueries = getIntent();
-        final String listName = receivedQueries.getStringExtra("listname");
+        String listName = receivedQueries.getStringExtra("listname");
         Log.e("Hey Man Heres ur name",""+listName);
-
+        final String container =listName;
         bucketDish = app.getBucketList();
 
         mAdapter = new ArrayAdapter<Restaurant>(this,android.R.layout.simple_list_item_checked,bucketDish);
@@ -60,7 +60,7 @@ public class EditListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         selected.clear();
-                        Log.e("HISADI0","ASDASLD");
+                        //Log.e("HISADI0",""+listName);
                         for(int i=0; i<lsvList.getCount(); i++){
                             CheckedTextView item = (CheckedTextView) lsvList.getChildAt(i);
                             Restaurant resto = (Restaurant) lsvList.getItemAtPosition(i);
@@ -73,7 +73,7 @@ public class EditListActivity extends AppCompatActivity {
                         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot snapshot) {
-                                    rootRef.child("RecommendationLists").child(listName).child("Restaurants").setValue(null);
+                                    rootRef.child("RecommendationLists").child(container).child("Restaurants").setValue("");
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
@@ -88,7 +88,9 @@ public class EditListActivity extends AppCompatActivity {
                             rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot snapshot) {
-                                        rootRef.child("RecommendationLists").child(listName).child("Restaurants").child(String.valueOf(iterateHolder)).setValue(resto);
+                                        rootRef.child("RecommendationLists").child(container).child("Restaurants").child(resto.getName()).setValue(resto);
+                                        Intent viewMessageActivity = new Intent(EditListActivity.this, ListContentActivity.class);
+                                        startActivity(viewMessageActivity);
                                 }
 
                                 @Override

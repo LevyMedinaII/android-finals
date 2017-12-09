@@ -18,6 +18,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -164,11 +165,14 @@ public class MainActivity extends AppCompatActivity  {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     // dataSnapshot is the "issue" node with all children with id 0
+                    HashMap allLists = new HashMap();
                     for (DataSnapshot list : dataSnapshot.getChildren()) {
                         // do something with the individual "issues"
                         listNames.add(list.getKey());
+
                         Log.d("this is MINE", " " + listNames);
                     }
+
                 }
             }
             @Override
@@ -177,6 +181,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
         app.setRecommendList(listNames);
+
 
 
     }

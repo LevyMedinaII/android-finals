@@ -3,6 +3,7 @@ package edu.ateneo.cie199.bucketdish;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,10 +33,11 @@ public class FavoriteListsActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent editListActivity = new Intent(FavoriteListsActivity.this, EditListActivity.class);
+                        Intent editListActivity = new Intent(FavoriteListsActivity.this, ListContentActivity.class);
 
                         editListActivity.putExtra("listnumber", position);
                         editListActivity.putExtra("listname", lsvFavoriteList.getItemAtPosition(position).toString());
+                        Log.d("this is MINE"," "+lsvFavoriteList.getItemAtPosition(position).toString());
 
                         startActivity(editListActivity);
                     }
