@@ -77,7 +77,8 @@
         <activity android:name=".RecommendActivity" />
         <activity android:name=".MessagesActivity" />
         <activity android:name=".ViewMessageActivity" />
-        <activity android:name=".ListContentActivity"></activity>
+        <activity android:name=".ListContentActivity" />
+        <activity android:name=".ViewAll"></activity>
     </application>
 
 </manifest>
